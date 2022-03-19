@@ -17,7 +17,7 @@ EmailClient:
       - localhost:2379
     Key: email.rpc
 
-MessageCLient:
+MessageClient:
   Etcd:
     Hosts:
       - localhost:2379
