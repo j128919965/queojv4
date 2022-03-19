@@ -1,0 +1,40 @@
+Name: queoj-api
+Host: 0.0.0.0
+Port: 8888
+
+Auth:
+  AccessSecret: fhqkjnf132nifiosqf1651f
+  AccessExpire: 3600
+
+Redis:
+  Host: localhost:6379
+
+UserClient:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: user.rpc
+
+ProblemClient:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: problem.rpc
+
+SolutionClient:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: solution.rpc
+
+MessageClient:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: message.rpc
+
+RecordClient:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: record.rpc

@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package solutionclient;
+
+option go_package = "solution";
+message Empty {}
+message SolutionDetail {
+  uint64 id = 1;
+  uint64 uid = 2;
+  int32 pid = 3;
+  uint64 time = 4;
+  string nickname = 5;
+  string title = 6;
+  string summary = 7;
+  string content = 8;
+}
+
+message SolutionSummary {
+  uint64 id = 1;
+  uint64 time = 2;
+  string nickname = 3;
+  string title = 4;
+  string summary = 5;
+}
+
+message SolutionAddReq {
+  int32 pid = 1;
+  uint64 uid = 2;
+  string nickname = 3;
+  string title = 4;
+  string content = 5;
+}
+
+message AllSolutionByPidReq {
+  int32 pid = 1;
+}
+
+message SolutionByIdReq {
+  uint64 id = 1;
+}
+
+message SolutionList {
+  repeated SolutionSummary solutions = 1;
+}
+
+service Solution {
+  rpc getSolutionDetail (SolutionByIdReq) returns (SolutionDetail);
+  rpc getAllSolutionByPid (AllSolutionByPidReq) returns (SolutionList);
+  rpc addSolution (SolutionAddReq) returns (Empty);
+}

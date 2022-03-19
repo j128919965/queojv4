@@ -1,0 +1,67 @@
+syntax = "v1"
+
+info(
+    title: "type title here"
+    desc: "type desc here"
+    author: "type author here"
+    email: "type email here"
+    version: "type version here"
+)
+
+type ProblemSynopsis struct {
+    Id    int32 `json:"id"`
+    Name  string `json:"name"`
+    Point int32 `json:"point"`
+    Level int32 `json:"level"`
+    Tags  string `json:"tags"`
+}
+
+type ProblemDetail struct {
+    Id          int32 `json:"id"`
+    Name        string `json:"name"`
+    Point       int32 `json:"point"`
+    Level       int32 `json:"level"`
+    Tags        string `json:"tags"`
+    Description string `json:"description"`
+    TimeLimit   uint64 `json:"timeLimit"`
+    SpaceLimit  uint64 `json:"spaceLimit"`
+}
+
+type ProblemHotVO struct {
+    Id int32 `json:"id"`
+    Name string `json:"name"`
+}
+
+type ProblemHotResp struct {
+    Problems []*ProblemHotVO `json:"problems"`
+}
+
+type ProblemsByTagReq struct {
+    Tags []int32 `json:"tags,omitempty"`
+}
+
+type ProblemPage struct {
+    TotalCount int32 `json:"totalCount"`
+    Problems   []*ProblemSynopsis `json:"problems"`
+}
+
+type Integer struct {
+    Value int32 `form:"value"`
+}
+
+@server (
+    group : problem
+)
+service queoj-api {
+    @handler GetProblemById
+    get /pro (Integer) returns (ProblemDetail)
+
+    @handler GetPage
+    get /pro/all () returns (ProblemPage)
+
+    @handler GetHot
+    get /pro/hot () returns (ProblemHotResp)
+
+    @handler GetByTags
+    get /pro/tags (ProblemsByTagReq) returns (ProblemPage);
+}

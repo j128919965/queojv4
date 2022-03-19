@@ -1,0 +1,24 @@
+Name: user.rpc
+ListenOn: 127.0.0.1:9000
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: user.rpc
+
+Mysql:
+  DataSource: root:123456@tcp(localhost:3306)/user?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+Redis:
+  Host: localhost:6379
+
+EmailClient:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: email.rpc
+
+JwtAuth:
+  AcKey: fhqkjnf132nifiosqf1651f
+  RfKey: nwevmskmeti2gmpggrg89321
+
+Salt: HWVOFkGgPTryzICwd7qnJaZR9KQ2i8xe

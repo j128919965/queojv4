@@ -1,0 +1,26 @@
+syntax = "v1"
+
+info(
+	title: "type title here"
+	desc: "type desc here"
+	author: "type author here"
+	email: "type email here"
+	version: "type version here"
+)
+
+type PageReq {
+	PageSize   int32   `form:"pageSize"`
+	PageNumber *int32  `form:"pageNumber,optional"`
+	LastId     *uint64 `form:"lastId,optional"`
+	HasCount   bool    `form:"hasCount"`
+}
+
+import "user.api"
+
+import "message.api"
+
+import "problem.api"
+
+import "solution.api"
+
+import "record.api"

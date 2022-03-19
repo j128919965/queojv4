@@ -1,0 +1,113 @@
+syntax = "v1"
+
+info(
+    title: "type title here"
+    desc: "type desc here"
+    author: "type author here"
+    email: "type email here"
+    version: "type version here"
+)
+
+type (
+    Tokens {
+        AccessToken string `json:"accessToken"`
+        RefreshToken string `json:"refreshToken"`
+    }
+
+    UserInfo {
+        Id string `json:"id"`
+        Nickname *string `json:"nickname,optional"`
+        Favicon *string `json:"favicon,optional"`
+        Phone *string `json:"phone,optional"`
+        Email string `json:"email"`
+        Coins int32 `json:"coins"`
+        Point int32 `json:"point"`
+        Introduction *string `json:"introduction,optional"`
+        Github *string `json:"github,optional"`
+        Website *string `json:"website,optional"`
+        Wechat *string `json:"wechat,optional"`
+    }
+
+    LoginResult {
+        Info UserInfo `json:"info"`
+        IsNewUser bool `json:"isNewUser"`
+        Tokens Tokens `json:"tokens"`
+    }
+
+    LoginByPasswordReq {
+        Email string `json:"email"`
+        Password string `json:"password"`
+    }
+
+    LoginByCodeReq {
+        Email string `json:"email"`
+        Code string `json:"code"`
+    }
+
+    UserInfoReq {
+        Email string `form:"email",json:"email"`
+    }
+
+    VerifyEmailReq {
+        Email string `json:"email"`
+    }
+
+
+    ChangeUserInfoReq {
+        Nickname *string `json:"nickname,optional"`
+        Favicon *string `json:"favicon,optional"`
+        Phone *string `json:"phone,optional"`
+        Introduction *string `json:"introduction,optional"`
+        Github *string `json:"github,optional"`
+        Website *string `json:"website,optional"`
+        Wechat *string `json:"wechat,optional"`
+    }
+
+    ChangePasswordReq {
+        NewPassword string `json:"newPassword"`
+        Code string `json:"code"`
+    }
+
+    RefreshReq {
+        RefreshToken string `json:"refreshToken"`
+    }
+
+)
+
+@server (
+    group : user
+)
+service queoj-api {
+    @handler LoginByPassword
+    post /user/login/password (LoginByPasswordReq) returns (LoginResult)
+
+    @handler LoginByCode
+    post /user/login/code (LoginByCodeReq) returns (LoginResult)
+
+    @handler VerifyEmail
+    post /user/verify/email (VerifyEmailReq)
+
+    @handler Refresh
+    post /user/refresh (RefreshReq) returns (Tokens)
+}
+
+@server (
+    group : user
+    jwt : Auth
+)
+service queoj-api {
+    @handler GetMineInfo
+    get /user/info returns (UserInfo)
+
+    @handler GetUserInfo
+    get /user/info/email (UserInfoReq) returns (UserInfo)
+
+    @handler ChangeUserInfo
+    put /user/info (ChangeUserInfoReq)
+
+    @handler FirstLoginIn
+    put /user/login/first
+
+    @handler ChangePassword
+    put /user/password (ChangePasswordReq)
+}

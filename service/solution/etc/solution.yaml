@@ -1,0 +1,12 @@
+Name: solution.rpc
+ListenOn: 127.0.0.1:8084
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: solution.rpc
+
+Mysql:
+  DataSource: root:123456@tcp(localhost:3306)/queojv4?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+Redis:
+  Host: localhost:6379

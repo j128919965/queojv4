@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package recordclient;
+
+option go_package = "record";
+
+message Empty {}
+
+message RecordDetail {
+  uint64 id = 1;
+  uint64 uid = 2;
+  uint64 time = 3;
+  int32 pid = 4;
+  uint32 language = 5;
+  uint32 status = 6;
+  uint64 timeUsed = 7;
+  uint64 spaceUsed = 8;
+  string code = 9;
+}
+
+message RecordState {
+  uint32 status = 1;
+}
+
+message RecordList {
+  repeated RecordDetail records = 1;
+}
+
+message RecordByIdReq {
+  uint64 id = 1;
+}
+
+message RecordByUserReq {
+  uint64 userId = 1;
+}
+
+service Record {
+  rpc getRecordByUser (RecordByUserReq) returns (RecordList);
+  rpc getRecordById (RecordByIdReq) returns (RecordDetail);
+  rpc addRecord (RecordDetail) returns (RecordByIdReq);
+  rpc getRecordStatus (RecordByIdReq) returns (RecordState);
+}

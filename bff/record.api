@@ -1,0 +1,61 @@
+syntax = "v1"
+
+info(
+    title: "type title here"
+    desc: "type desc here"
+    author: "type author here"
+    email: "type email here"
+    version: "type version here"
+)
+
+type RecordDetail struct {
+    Id        uint64 `json:"id"`
+    Uid       uint64 `json:"uid"`
+    Time      uint64 `json:"time"`
+    Pid       int32 `json:"pid"`
+    Status    uint32 `json:"status"`
+    Language  uint32 `json:"language"`
+    TimeUsed  uint64 `json:"timeUsed"`
+    SpaceUsed uint64 `json:"spaceUsed"`
+    Code      string `json:"code"`
+}
+
+type RecordAddReq struct {
+    Pid       int32 `json:"pid"`
+    Language  uint32 `json:"language"`
+    Code      string `json:"code"`
+}
+
+type RecordList struct {
+    Records []*RecordDetail `json:"records"`
+}
+
+type RecordStatus struct {
+    Status uint32 `json:"status"`
+}
+
+type RecordByIdReq struct {
+    Id uint64 `form:"id"`
+}
+
+type Long struct {
+    Id uint64 `json:"id"`
+}
+
+@server (
+    group : record
+    jwt : Auth
+)
+service queoj-api {
+    @handler SubmitRecord
+    post /record (RecordAddReq) returns (Long)
+
+    @handler GetById
+    get /record (RecordByIdReq) returns (RecordDetail)
+
+    @handler GeyByUser
+    get /record/user returns (RecordList)
+
+    @handler GetStatus
+    get /record/status (RecordByIdReq) returns (RecordStatus)
+}

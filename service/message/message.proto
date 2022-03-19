@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package messageclient;
+
+option go_package = "message";
+
+message Empty {}
+
+message PageRequest {
+  int32 pageSize = 1;
+  optional int32 pageNumber = 2;
+  optional uint64 lastId = 3;
+  bool hasCount = 4;
+}
+
+message HasNoReadReq {
+  uint64 receiver = 1;
+}
+
+message HasNoReadResp {
+  bool ok = 1;
+}
+
+message MessageByIdReq {
+  uint64 id = 1;
+}
+
+message MessageByUserIdReq {
+  uint64 userId = 1;
+}
+
+message MessageReqByReceiver {
+  uint64 receiver = 1;
+  optional bool noread = 2;
+  PageRequest page = 3;
+}
+
+message MessageDto {
+  uint64 id = 1;
+  uint64 receiver = 2;
+  int64  time = 3;
+  bool   read = 4;
+  int32  type = 5;
+  bool   isDeleted = 6;
+  string title = 7;
+  string content = 8;
+}
+
+message MessagePage {
+  int32 totalCount = 1;
+  repeated MessageDto messages = 2;
+}
+
+service Message {
+  rpc GetMessagePage(MessageReqByReceiver) returns(MessagePage);
+  rpc ReadMsg (MessageByIdReq) returns (Empty);
+  rpc ReadAllMsg (MessageByUserIdReq) returns (Empty);
+  rpc GetMessageById (MessageByIdReq) returns (MessageDto);
+  rpc SendMessage (MessageDto) returns (Empty);
+  rpc DeleteMsg (MessageByIdReq) returns (Empty);
+  rpc DeleteAllMsg (MessageByUserIdReq) returns (Empty);
+}

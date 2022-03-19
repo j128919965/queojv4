@@ -1,0 +1,52 @@
+syntax = "v1"
+
+info(
+    title: "type title here"
+    desc: "type desc here"
+    author: "type author here"
+    email: "type email here"
+    version: "type version here"
+)
+
+type (
+    MessageByIdReq {
+        Id uint64 `form:"id",json:"id"`
+    }
+
+    Message {
+        Id uint64 `json:"id"`
+        Receiver uint64 `json:"receiver"`
+        Time int64 `json:"time"`
+        Read bool `json:"read"`
+        Type byte `json:"type"`
+        Title string `json:"title"`
+        Content string `json:"content"`
+    }
+
+    MessageaPageResp {
+        Messages []*Message `json:"messages"`
+        TotalCount *int32 `json:"totalCount"`
+    }
+
+)
+
+@server (
+    group : message
+    jwt : Auth
+)
+service queoj-api {
+    @handler GetMessageById
+    get /msg (MessageByIdReq) returns (Message)
+
+    @handler GetPage
+    get /msg/page (PageReq) returns (MessageaPageResp)
+
+    @handler ReadMsg
+    put /msg/read (MessageByIdReq)
+
+    @handler ReadAll
+    post /msg/read/all
+
+    @handler DeleteById
+    post /msg/del (MessageByIdReq)
+}

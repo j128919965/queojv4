@@ -1,0 +1,59 @@
+syntax = "v1"
+
+type SolutionAddReq struct {
+    Pid      int32 `json:"pid"`
+    Nickname string `json:"nickname"`
+    Title    string `json:"title"`
+    Content  string `json:"content"`
+}
+
+type SolutionSummary struct {
+    Id       uint64 `json:"id"`
+    Time     uint64 `json:"time"`
+    Nickname string `json:"nickname"`
+    Title    string `json:"title"`
+    Summary  string `json:"summary"`
+}
+
+type SolutionDetail struct {
+    Id       uint64 `json:"id"`
+    Uid      uint64 `json:"uid"`
+    Pid      int32 `json:"pid"`
+    Time     uint64 `json:"time"`
+    Nickname string `json:"nickname"`
+    Title    string `json:"title"`
+    Summary  string `json:"summary"`
+    Content  string `json:"content"`
+}
+
+type SolutionByIdReq struct {
+    Id uint64 `form:"id"`
+}
+
+type AllSolutionByPidReq struct {
+    Pid int32 `form:"pid"`
+}
+
+type SolutionList struct {
+    Solutions []*SolutionSummary `json:"solutions"`
+}
+
+@server (
+    group : solution
+)
+service queoj-api {
+    @handler GetSolutionById
+    get /solution (SolutionByIdReq) returns (SolutionDetail)
+
+    @handler GetAllSolutionByPid
+    get /solution/all (AllSolutionByPidReq) returns (SolutionList)
+}
+
+@server (
+    group : solution
+    jwt : Auth
+)
+service queoj-api {
+    @handler AddSolution
+    put /solution (SolutionAddReq)
+}
