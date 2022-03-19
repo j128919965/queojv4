@@ -17,6 +17,12 @@ EmailClient:
       - localhost:2379
     Key: email.rpc
 
+MessageCLient:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: message.rpc
+
 JwtAuth:
   AcKey: fhqkjnf132nifiosqf1651f
   RfKey: nwevmskmeti2gmpggrg89321

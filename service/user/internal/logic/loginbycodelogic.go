@@ -6,7 +6,9 @@ import (
 	"github.com/j128919965/gopkg/errors"
 	"github.com/j128919965/gopkg/stringx"
 	"gorm.io/gorm"
+	"queoj/service/message/messageclient"
 	"queoj/service/user/internal/model"
+	"time"
 
 	"queoj/service/user/internal/svc"
 	"queoj/service/user/user"
@@ -67,7 +69,15 @@ func (l *LoginByCodeLogic) LoginByCode(in *user.LoginByCodeReq) (*user.LoginResu
 		l.svcCtx.Db.Create(&account)
 
 		resp.IsNewUser = true
-		resp.Info = &user.UserInfo{Email: u.Email}
+		resp.Info = &user.UserInfo{Email: u.Email,Nickname: &info.Nickname.String}
+
+		l.svcCtx.MessageClient.SendMessage(l.ctx,&messageclient.MessageDto{
+			Receiver:  u.ID,
+			Time:      time.Now().Unix(),
+			Type:      0,
+			Title:     "欢迎来到QueOj!",
+			Content:   "欢迎来到QueOj!\n这里有丰富多样的题型，舒适的编码体验，\n每道题还有题解可以阅读。\n\n享受编程的乐趣吧！",
+		})
 	} else {
 		info ,err := l.svcCtx.GetUserInfo(u.ID)
 		if err != nil {

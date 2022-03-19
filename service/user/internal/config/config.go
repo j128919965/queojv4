@@ -16,6 +16,7 @@ type Config struct {
 	Redis redis.RedisConf
 
 	EmailClient zrpc.RpcClientConf
+	MessageClient zrpc.RpcClientConf
 
 	JwtAuth struct{
 		AcKey string
