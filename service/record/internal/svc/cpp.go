@@ -170,17 +170,17 @@ func runCpp(classId, input string, timeLimit, spaceLimit uint64) (uint32, *Judge
 	respMap := m[0].(map[string]interface{})
 	if respMap["status"] != "Accepted" {
 		switch respMap["status"] {
-		case "InternalError":
+		case "Internal Error":
 			return record_status.InternalError, nil, nil
-		case "MemoryLimitExceeded":
+		case "Memory Limit Exceeded":
 			return record_status.MemoryLimitExceeded, nil, nil
-		case "TimeLimitExceeded":
+		case "Time Limit Exceeded":
 			return record_status.TimeLimitExceeded, nil, nil
-		case "OutputLimitExceeded":
+		case "Output Limit Exceeded":
 			return record_status.OutputLimitExceeded, nil, nil
-		case "FileError":
+		case "File Error":
 			return record_status.FileError, nil, nil
-		case "NonzeroExitStatus":
+		case "Nonzero Exit Status":
 			return record_status.NonzeroExitStatus, nil, nil
 		case "Signalled":
 			return record_status.Signalled, nil, nil
