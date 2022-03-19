@@ -71,13 +71,16 @@ func (l *LoginByCodeLogic) LoginByCode(in *user.LoginByCodeReq) (*user.LoginResu
 		resp.IsNewUser = true
 		resp.Info = &user.UserInfo{Email: u.Email,Nickname: &info.Nickname.String}
 
-		l.svcCtx.MessageClient.SendMessage(l.ctx,&messageclient.MessageDto{
-			Receiver:  u.ID,
-			Time:      time.Now().Unix(),
-			Type:      0,
-			Title:     "欢迎来到QueOj!",
-			Content:   "欢迎来到QueOj!\n这里有丰富多样的题型，舒适的编码体验，\n每道题还有题解可以阅读。\n\n享受编程的乐趣吧！",
+		_, err := l.svcCtx.MessageClient.SendMessage(l.ctx, &messageclient.MessageDto{
+			Receiver: u.ID,
+			Time:     time.Now().Unix(),
+			Type:     0,
+			Title:    "欢迎来到QueOj!",
+			Content:  "欢迎来到QueOj!\n这里有丰富多样的题型，舒适的编码体验，\n每道题还有题解可以阅读。\n\n享受编程的乐趣吧！",
 		})
+		if err != nil {
+			l.Error(err)
+		}
 	} else {
 		info ,err := l.svcCtx.GetUserInfo(u.ID)
 		if err != nil {
