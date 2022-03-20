@@ -34,8 +34,8 @@ func (l *LoginByPasswordLogic) LoginByPassword(req types.LoginByPasswordReq) (re
 		return nil, err
 	}
 	resp = &types.LoginResult{
-		Info:      types.UserInfo{
-			Id:           fmt.Sprintf("%d",result.Info.Id),
+		Info: types.UserInfo{
+			Id:           fmt.Sprintf("%d", result.Info.Id),
 			Nickname:     result.Info.Nickname,
 			Favicon:      result.Info.Favicon,
 			Phone:        result.Info.Phone,
@@ -46,12 +46,13 @@ func (l *LoginByPasswordLogic) LoginByPassword(req types.LoginByPasswordReq) (re
 			Github:       result.Info.Github,
 			Website:      result.Info.Website,
 			Wechat:       result.Info.Wechat,
+			Role:         result.Info.Role,
 		},
 		IsNewUser: result.IsNewUser,
-		Tokens:    types.Tokens{
+		Tokens: types.Tokens{
 			AccessToken:  result.Tokens.AccessToken,
 			RefreshToken: result.Tokens.RefreshToken,
 		},
 	}
-	return resp,nil
+	return resp, nil
 }

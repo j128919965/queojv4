@@ -33,13 +33,13 @@ func (l *LoginByPasswordLogic) LoginByPassword(in *user.LoginByPasswordReq) (*us
 		return nil, err
 	}
 
-	if !u.Password.Valid{
-		return nil, errors.New("该用户暂未设置密码，不能使用密码登录",400)
+	if !u.Password.Valid {
+		return nil, errors.New("该用户暂未设置密码，不能使用密码登录", 400)
 	}
 
 	pass := stringx.Encrypt(l.svcCtx.Config.Salt, in.Password)
 	if pass != u.Password.String {
-		return nil, errors.New("邮箱或密码错误",400)
+		return nil, errors.New("邮箱或密码错误", 400)
 	}
 
 	resp := &user.LoginResult{
@@ -55,17 +55,17 @@ func (l *LoginByPasswordLogic) LoginByPassword(in *user.LoginByPasswordReq) (*us
 
 	id := u.ID
 
-	info ,err :=l.svcCtx.GetUserInfo(id)
+	info, err := l.svcCtx.GetUserInfo(id)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 
-	account ,err := l.svcCtx.GetUserAccount(id)
+	account, err := l.svcCtx.GetUserAccount(id)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 
-	resp.Info =  &user.UserInfo{
+	resp.Info = &user.UserInfo{
 		Id:           info.ID,
 		Nickname:     stringx.NullStringToPtr(info.Nickname),
 		Favicon:      stringx.NullStringToPtr(info.Favicon),
@@ -77,6 +77,7 @@ func (l *LoginByPasswordLogic) LoginByPassword(in *user.LoginByPasswordReq) (*us
 		Github:       stringx.NullStringToPtr(info.Github),
 		Website:      stringx.NullStringToPtr(info.Website),
 		Wechat:       stringx.NullStringToPtr(info.Wechat),
+		Role:         int32(u.Role),
 	}
 
 	resp.Tokens = &user.Tokens{

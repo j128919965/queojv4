@@ -69,7 +69,7 @@ func (l *LoginByCodeLogic) LoginByCode(in *user.LoginByCodeReq) (*user.LoginResu
 		l.svcCtx.Db.Create(&account)
 
 		resp.IsNewUser = true
-		resp.Info = &user.UserInfo{Email: u.Email,Nickname: &info.Nickname.String}
+		resp.Info = &user.UserInfo{Email: u.Email, Nickname: &info.Nickname.String}
 
 		_, err := l.svcCtx.MessageClient.SendMessage(l.ctx, &messageclient.MessageDto{
 			Receiver: u.ID,
@@ -82,12 +82,12 @@ func (l *LoginByCodeLogic) LoginByCode(in *user.LoginByCodeReq) (*user.LoginResu
 			l.Error(err)
 		}
 	} else {
-		info ,err := l.svcCtx.GetUserInfo(u.ID)
+		info, err := l.svcCtx.GetUserInfo(u.ID)
 		if err != nil {
 			return nil, err
 		}
 
-		account ,err := l.svcCtx.GetUserAccount(u.ID)
+		account, err := l.svcCtx.GetUserAccount(u.ID)
 		if err != nil {
 			return nil, err
 		}
@@ -104,6 +104,7 @@ func (l *LoginByCodeLogic) LoginByCode(in *user.LoginByCodeReq) (*user.LoginResu
 			Github:       stringx.NullStringToPtr(info.Github),
 			Website:      stringx.NullStringToPtr(info.Website),
 			Wechat:       stringx.NullStringToPtr(info.Wechat),
+			Role:         int32(u.Role),
 		}
 	}
 

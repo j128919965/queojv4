@@ -25,6 +25,7 @@ message UserInfo {
   optional string github = 9;
   optional string website = 10;
   optional string wechat = 11;
+  int32 role = 12;
 }
 
 message LoginResult {

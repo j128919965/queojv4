@@ -25,7 +25,7 @@ func NewLoginByCodeLogic(ctx context.Context, svcCtx *svc.ServiceContext) LoginB
 }
 
 func (l *LoginByCodeLogic) LoginByCode(req types.LoginByCodeReq) (resp *types.LoginResult, err error) {
-	res, err := l.svcCtx.UserClient.LoginByCode(l.ctx,&user.LoginByCodeReq{
+	res, err := l.svcCtx.UserClient.LoginByCode(l.ctx, &user.LoginByCodeReq{
 		Email: req.Email,
 		Code:  req.Code,
 	})
@@ -34,8 +34,8 @@ func (l *LoginByCodeLogic) LoginByCode(req types.LoginByCodeReq) (resp *types.Lo
 	}
 
 	return &types.LoginResult{
-		Info:      types.UserInfo{
-			Id:           strconv.FormatUint(res.Info.Id,10),
+		Info: types.UserInfo{
+			Id:           strconv.FormatUint(res.Info.Id, 10),
 			Nickname:     res.Info.Nickname,
 			Favicon:      res.Info.Favicon,
 			Phone:        res.Info.Phone,
@@ -46,11 +46,12 @@ func (l *LoginByCodeLogic) LoginByCode(req types.LoginByCodeReq) (resp *types.Lo
 			Github:       res.Info.Github,
 			Website:      res.Info.Website,
 			Wechat:       res.Info.Wechat,
+			Role:         res.Info.Role,
 		},
 		IsNewUser: res.IsNewUser,
-		Tokens:  types.Tokens{
+		Tokens: types.Tokens{
 			AccessToken:  res.Tokens.AccessToken,
 			RefreshToken: res.Tokens.RefreshToken,
 		},
-	},err
+	}, err
 }

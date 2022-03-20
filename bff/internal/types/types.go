@@ -25,6 +25,7 @@ type UserInfo struct {
 	Github       *string `json:"github,optional"`
 	Website      *string `json:"website,optional"`
 	Wechat       *string `json:"wechat,optional"`
+	Role         int32   `json:"role"`
 }
 
 type LoginResult struct {
