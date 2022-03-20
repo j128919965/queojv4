@@ -67,6 +67,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/user/password",
 				Handler: user.ChangePasswordHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/user/rank",
+				Handler: user.GetUserRankHandler(serverCtx),
+			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 	)
@@ -124,6 +129,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/pro/tags",
 				Handler: problem.GetByTagsHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/pro/statistic",
+				Handler: problem.GetStatisticHandler(serverCtx),
+			},
 		},
 	)
 
@@ -169,6 +179,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodGet,
 				Path:    "/record/user",
 				Handler: record.GeyByUserHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/record/user/statistic",
+				Handler: record.GeySuccessStatisticByUserHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,

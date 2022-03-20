@@ -49,6 +49,12 @@ type Integer struct {
     Value int32 `form:"value"`
 }
 
+type AllProblemStatistic struct {
+    Easy   int32 `json:"easy"`
+    Medium int32 `json:"medium"`
+    Hard   int32 `json:"hard"`
+}
+
 @server (
     group : problem
 )
@@ -64,4 +70,7 @@ service queoj-api {
 
     @handler GetByTags
     get /pro/tags (ProblemsByTagReq) returns (ProblemPage);
+
+    @handler GetStatistic
+    get /pro/statistic returns (AllProblemStatistic);
 }

@@ -15,4 +15,5 @@ type Config struct {
 
 	Redis redis.RedisConf
 	ProblemClient zrpc.RpcClientConf
+	UserClient zrpc.RpcClientConf
 }

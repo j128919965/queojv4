@@ -34,9 +34,16 @@ message RecordByUserReq {
   uint64 userId = 1;
 }
 
+message SuccessStatistic {
+  int32 easy = 1;
+  int32 medium = 2;
+  int32 hard = 3;
+}
+
 service Record {
   rpc getRecordByUser (RecordByUserReq) returns (RecordList);
   rpc getRecordById (RecordByIdReq) returns (RecordDetail);
   rpc addRecord (RecordDetail) returns (RecordByIdReq);
   rpc getRecordStatus (RecordByIdReq) returns (RecordState);
+  rpc getUserSuccessStatistic (RecordByUserReq) returns (SuccessStatistic);
 }

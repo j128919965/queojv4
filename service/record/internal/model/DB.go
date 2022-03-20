@@ -13,10 +13,13 @@ func NewMysql(dsn string) (*gorm.DB, error) {
 	}
 
 	err = db.AutoMigrate(&Record{})
-
 	if err != nil {
 		return nil, err
 	}
 
+	err = db.AutoMigrate(&UserSuccessStatistic{})
+	if err != nil {
+		return nil, err
+	}
 	return db, nil
 }

@@ -46,6 +46,11 @@ func (s *UserServer) ChangePassword(ctx context.Context, in *user.ChangePassword
 	return l.ChangePassword(in)
 }
 
+func (s *UserServer) GetUserRank(ctx context.Context, in *user.RankByUserIdReq) (*user.UserRank, error) {
+	l := logic.NewGetUserRankLogic(ctx, s.svcCtx)
+	return l.GetUserRank(in)
+}
+
 func (s *UserServer) GetUserInfo(ctx context.Context, in *user.UserInfoReq) (*user.UserInfo, error) {
 	l := logic.NewGetUserInfoLogic(ctx, s.svcCtx)
 	return l.GetUserInfo(in)

@@ -9,7 +9,6 @@ import (
 	"queoj/service/user/user"
 
 	"github.com/tal-tech/go-zero/zrpc"
-	"google.golang.org/grpc"
 )
 
 type (
@@ -19,22 +18,25 @@ type (
 	LoginByCodeReq     = user.LoginByCodeReq
 	LoginByPasswordReq = user.LoginByPasswordReq
 	LoginResult        = user.LoginResult
+	RankByUserIdReq    = user.RankByUserIdReq
 	RefreshReq         = user.RefreshReq
 	Result             = user.Result
 	Tokens             = user.Tokens
 	UserInfo           = user.UserInfo
 	UserInfoReq        = user.UserInfoReq
 	UserInfoReqByEmail = user.UserInfoReqByEmail
+	UserRank           = user.UserRank
 
 	User interface {
-		LoginByPassword(ctx context.Context, in *LoginByPasswordReq, opts ...grpc.CallOption) (*LoginResult, error)
-		LoginByCode(ctx context.Context, in *LoginByCodeReq, opts ...grpc.CallOption) (*LoginResult, error)
-		AddCoinOrPoint(ctx context.Context, in *AddCoinOrPointReq, opts ...grpc.CallOption) (*Result, error)
-		ChangeUserInfo(ctx context.Context, in *ChangeUserInfoReq, opts ...grpc.CallOption) (*Result, error)
-		ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*Result, error)
-		GetUserInfo(ctx context.Context, in *UserInfoReq, opts ...grpc.CallOption) (*UserInfo, error)
-		SendVerifyEmail(ctx context.Context, in *UserInfoReqByEmail, opts ...grpc.CallOption) (*Result, error)
-		RefreshToken(ctx context.Context, in *RefreshReq, opts ...grpc.CallOption) (*Tokens, error)
+		LoginByPassword(ctx context.Context, in *LoginByPasswordReq) (*LoginResult, error)
+		LoginByCode(ctx context.Context, in *LoginByCodeReq) (*LoginResult, error)
+		AddCoinOrPoint(ctx context.Context, in *AddCoinOrPointReq) (*Result, error)
+		ChangeUserInfo(ctx context.Context, in *ChangeUserInfoReq) (*Result, error)
+		ChangePassword(ctx context.Context, in *ChangePasswordReq) (*Result, error)
+		GetUserRank(ctx context.Context, in *RankByUserIdReq) (*UserRank, error)
+		GetUserInfo(ctx context.Context, in *UserInfoReq) (*UserInfo, error)
+		SendVerifyEmail(ctx context.Context, in *UserInfoReqByEmail) (*Result, error)
+		RefreshToken(ctx context.Context, in *RefreshReq) (*Tokens, error)
 	}
 
 	defaultUser struct {
@@ -48,42 +50,47 @@ func NewUser(cli zrpc.Client) User {
 	}
 }
 
-func (m *defaultUser) LoginByPassword(ctx context.Context, in *LoginByPasswordReq, opts ...grpc.CallOption) (*LoginResult, error) {
+func (m *defaultUser) LoginByPassword(ctx context.Context, in *LoginByPasswordReq) (*LoginResult, error) {
 	client := user.NewUserClient(m.cli.Conn())
-	return client.LoginByPassword(ctx, in, opts...)
+	return client.LoginByPassword(ctx, in)
 }
 
-func (m *defaultUser) LoginByCode(ctx context.Context, in *LoginByCodeReq, opts ...grpc.CallOption) (*LoginResult, error) {
+func (m *defaultUser) LoginByCode(ctx context.Context, in *LoginByCodeReq) (*LoginResult, error) {
 	client := user.NewUserClient(m.cli.Conn())
-	return client.LoginByCode(ctx, in, opts...)
+	return client.LoginByCode(ctx, in)
 }
 
-func (m *defaultUser) AddCoinOrPoint(ctx context.Context, in *AddCoinOrPointReq, opts ...grpc.CallOption) (*Result, error) {
+func (m *defaultUser) AddCoinOrPoint(ctx context.Context, in *AddCoinOrPointReq) (*Result, error) {
 	client := user.NewUserClient(m.cli.Conn())
-	return client.AddCoinOrPoint(ctx, in, opts...)
+	return client.AddCoinOrPoint(ctx, in)
 }
 
-func (m *defaultUser) ChangeUserInfo(ctx context.Context, in *ChangeUserInfoReq, opts ...grpc.CallOption) (*Result, error) {
+func (m *defaultUser) ChangeUserInfo(ctx context.Context, in *ChangeUserInfoReq) (*Result, error) {
 	client := user.NewUserClient(m.cli.Conn())
-	return client.ChangeUserInfo(ctx, in, opts...)
+	return client.ChangeUserInfo(ctx, in)
 }
 
-func (m *defaultUser) ChangePassword(ctx context.Context, in *ChangePasswordReq, opts ...grpc.CallOption) (*Result, error) {
+func (m *defaultUser) ChangePassword(ctx context.Context, in *ChangePasswordReq) (*Result, error) {
 	client := user.NewUserClient(m.cli.Conn())
-	return client.ChangePassword(ctx, in, opts...)
+	return client.ChangePassword(ctx, in)
 }
 
-func (m *defaultUser) GetUserInfo(ctx context.Context, in *UserInfoReq, opts ...grpc.CallOption) (*UserInfo, error) {
+func (m *defaultUser) GetUserRank(ctx context.Context, in *RankByUserIdReq) (*UserRank, error) {
 	client := user.NewUserClient(m.cli.Conn())
-	return client.GetUserInfo(ctx, in, opts...)
+	return client.GetUserRank(ctx, in)
 }
 
-func (m *defaultUser) SendVerifyEmail(ctx context.Context, in *UserInfoReqByEmail, opts ...grpc.CallOption) (*Result, error) {
+func (m *defaultUser) GetUserInfo(ctx context.Context, in *UserInfoReq) (*UserInfo, error) {
 	client := user.NewUserClient(m.cli.Conn())
-	return client.SendVerifyEmail(ctx, in, opts...)
+	return client.GetUserInfo(ctx, in)
 }
 
-func (m *defaultUser) RefreshToken(ctx context.Context, in *RefreshReq, opts ...grpc.CallOption) (*Tokens, error) {
+func (m *defaultUser) SendVerifyEmail(ctx context.Context, in *UserInfoReqByEmail) (*Result, error) {
 	client := user.NewUserClient(m.cli.Conn())
-	return client.RefreshToken(ctx, in, opts...)
+	return client.SendVerifyEmail(ctx, in)
+}
+
+func (m *defaultUser) RefreshToken(ctx context.Context, in *RefreshReq) (*Tokens, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.RefreshToken(ctx, in)
 }

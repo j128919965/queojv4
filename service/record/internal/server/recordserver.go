@@ -40,3 +40,8 @@ func (s *RecordServer) GetRecordStatus(ctx context.Context, in *record.RecordByI
 	l := logic.NewGetRecordStatusLogic(ctx, s.svcCtx)
 	return l.GetRecordStatus(in)
 }
+
+func (s *RecordServer) GetUserSuccessStatistic(ctx context.Context, in *record.RecordByUserReq) (*record.SuccessStatistic, error) {
+	l := logic.NewGetUserSuccessStatisticLogic(ctx, s.svcCtx)
+	return l.GetUserSuccessStatistic(in)
+}

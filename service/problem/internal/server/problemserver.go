@@ -40,3 +40,8 @@ func (s *ProblemServer) GetProblemsByTags(ctx context.Context, in *problem.Probl
 	l := logic.NewGetProblemsByTagsLogic(ctx, s.svcCtx)
 	return l.GetProblemsByTags(in)
 }
+
+func (s *ProblemServer) GetAllProblemStatistic(ctx context.Context, in *problem.Empty) (*problem.AllProblemStatistic, error) {
+	l := logic.NewGetAllProblemStatisticLogic(ctx, s.svcCtx)
+	return l.GetAllProblemStatistic(in)
+}

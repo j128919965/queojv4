@@ -11,7 +11,7 @@ type User struct {
 	Email    string         `gorm:"size:200;not null;unique"`
 }
 
-type UserInfo struct {	
+type UserInfo struct {
 	ID           uint64
 	Nickname     sql.NullString `gorm:"size:45"`
 	Introduction sql.NullString `gorm:"size:255"`
@@ -24,7 +24,7 @@ type UserInfo struct {
 }
 
 type UserAccount struct {
-	ID    uint64
+	ID    uint64 `gorm:"primarykey"`
 	Coins int32 `gorm:"default:0;not null"`
-	Point int32 `gorm:"default:0;not null"`
+	Point int32 `gorm:"default:0;not null;index:idx_point"`
 }

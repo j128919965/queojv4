@@ -16,3 +16,9 @@ ProblemClient:
     Hosts:
       - localhost:2379
     Key: problem.rpc
+
+UserClient:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: user.rpc

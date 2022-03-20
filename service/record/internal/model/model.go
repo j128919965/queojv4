@@ -11,3 +11,10 @@ type Record struct {
 	SpaceUsed uint64
 	Code string
 }
+
+type UserSuccessStatistic struct {
+	Uid uint64 `gorm:"primaryKey"`
+	Easy int32 `gorm:"default:0"`
+	Medium int32 `gorm:"default:0"`
+	Hard int32 `gorm:"default:0"`
+}

@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-
 	"queoj/service/user/internal/config"
 	"queoj/service/user/internal/server"
 	"queoj/service/user/internal/svc"
@@ -32,5 +31,14 @@ func main() {
 	defer s.Stop()
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
+
+	//rank, err := logic.NewGetUserRankLogic(context.Background(),ctx).GetUserRank(&user.RankByUserIdReq{Id: 1})
+	//if err != nil {
+	//	logx.Error(err)
+	//}else {
+	//	logx.Info(rank)
+	//}
+
+
 	s.Start()
 }

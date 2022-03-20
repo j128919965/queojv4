@@ -47,6 +47,12 @@ message ProblemIO {
   string outTxt = 4;
 }
 
+message AllProblemStatistic {
+  int32 easy = 1;
+  int32 medium = 2;
+  int32 hard = 3;
+}
+
 message Empty{}
 
 service Problem {
@@ -54,4 +60,5 @@ service Problem {
   rpc getAllProblem(Empty) returns (ProblemPage);
   rpc getProblemIO(Integer) returns (ProblemIO);
   rpc getProblemsByTags(ProblemsByTagReq) returns (ProblemPage);
+  rpc getAllProblemStatistic(Empty) returns (AllProblemStatistic);
 }

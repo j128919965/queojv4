@@ -70,6 +70,10 @@ type RefreshReq struct {
 	RefreshToken string `json:"refreshToken"`
 }
 
+type UserRank struct {
+	Rank int32 `json:"rank"`
+}
+
 type MessageByIdReq struct {
 	Id uint64 `form:"id",json:"id"`
 }
@@ -128,6 +132,12 @@ type ProblemPage struct {
 
 type Integer struct {
 	Value int32 `form:"value"`
+}
+
+type AllProblemStatistic struct {
+	Easy   int32 `json:"easy"`
+	Medium int32 `json:"medium"`
+	Hard   int32 `json:"hard"`
 }
 
 type SolutionAddReq struct {
@@ -200,4 +210,10 @@ type RecordByIdReq struct {
 
 type Long struct {
 	Id uint64 `json:"id"`
+}
+
+type SuccessStatistic struct {
+	Easy   int32 `json:"easy"`
+	Medium int32 `json:"medium"`
+	Hard   int32 `json:"hard"`
 }

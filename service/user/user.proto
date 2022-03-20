@@ -74,10 +74,19 @@ message AddCoinOrPointReq {
   uint64 userId = 1;
   int32 coins = 2;
   int32 points = 3;
+  string reason = 4;
 }
 
 message RefreshReq {
   string refreshToken = 1;
+}
+
+message RankByUserIdReq {
+  uint64 id = 1;
+}
+
+message UserRank {
+  int32 value = 1;
 }
 
 service User {
@@ -87,6 +96,7 @@ service User {
   rpc AddCoinOrPoint(AddCoinOrPointReq) returns (Result);
   rpc ChangeUserInfo(ChangeUserInfoReq) returns (Result);
   rpc ChangePassword(ChangePasswordReq) returns (Result);
+  rpc GetUserRank(RankByUserIdReq) returns (UserRank);
 
   rpc GetUserInfo(UserInfoReq) returns (UserInfo);
 

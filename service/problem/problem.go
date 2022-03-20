@@ -1,11 +1,8 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"fmt"
-	"queoj/service/problem/internal/logic"
-
 	"queoj/service/problem/internal/config"
 	"queoj/service/problem/internal/server"
 	"queoj/service/problem/internal/svc"
@@ -24,7 +21,7 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 	ctx := svc.NewServiceContext(c)
-	srv := server.NewUserServer(ctx)
+	srv := server.NewProblemServer(ctx)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
 		problem.RegisterProblemServer(grpcServer, srv)
@@ -32,7 +29,7 @@ func main() {
 	defer s.Stop()
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
-	allProblem, _ := logic.NewGetProblemsByTagsLogic(context.Background(), ctx).GetProblemsByTags(&problem.ProblemsByTagReq{Tags: []int32{4}})
-	fmt.Println(allProblem)
+	//allProblem, _ := logic.NewGetAllProblemStatisticLogic(context.Background(), ctx).GetAllProblemStatistic(&problem.Empty{})
+	//logx.Info(allProblem)
 	s.Start()
 }

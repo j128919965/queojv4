@@ -72,6 +72,10 @@ type (
         RefreshToken string `json:"refreshToken"`
     }
 
+    UserRank {
+        Rank int32 `json:"rank"`
+    }
+
 )
 
 @server (
@@ -110,4 +114,7 @@ service queoj-api {
 
     @handler ChangePassword
     put /user/password (ChangePasswordReq)
+
+    @handler GetUserRank
+    get /user/rank returns (UserRank)
 }

@@ -25,6 +25,7 @@ func (c *CoinsAndPointsSyncer) trySync() {
 	}
 	errMap := make(map[uint64][2]int32)
 	for userId, ints := range c.m {
+		logx.Info(fmt.Sprintf("sync coins and points for user { %d }",userId))
 		err := c.db.Model(&model.UserAccount{ID:userId}).Updates(map[string]interface{}{
 			"coins":gorm.Expr("coins + ?",ints[0]),
 			"point":gorm.Expr("point + ?",ints[1]),

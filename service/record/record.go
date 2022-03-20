@@ -34,14 +34,19 @@ func main() {
 	//	Time:     uint64(time.Now().Unix()),
 	//	Pid:      1,
 	//	Language: 1,
-	//	Code:     "public class Main{\n    \n    private static boolean b = true;\n\n    public static void main(String[] args){\n        while(b){\n            System.out.println(\"hello worsfdsld\");\n        }\n        System.out.println(\"hello worsfdsld\");\n    }\n    \n}",
+	//	//Code:     "public class Main{\n    \n    private static boolean b = true;\n\n    public static void main(String[] args){\n        while(b){\n            System.out.println(\"hello worsfdsld\");\n        }\n        System.out.println(\"hello world\");\n    }\n    \n}",
+	//	Code:     "public class Main{\n    \n    private static boolean b = true;\n\n    public static void main(String[] args){\n       System.out.println(\"hello world\");\n    }\n    \n}",
 	//})
 	//if err != nil {
 	//	fmt.Println(err)
 	//	return
 	//}
 	//fmt.Println(addRecord)
-	//
+	//statistic, err := logic.NewGetUserSuccessStatisticLogic(context.Background(),ctx).GetUserSuccessStatistic(&record.RecordByUserReq{UserId: 1})
+	//if err != nil {
+	//	logx.Error(err)
+	//}
+	//fmt.Println(statistic)
 
 	s.Start()
 }

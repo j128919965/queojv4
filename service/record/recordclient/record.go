@@ -12,18 +12,20 @@ import (
 )
 
 type (
-	Empty           = record.Empty
-	RecordByIdReq   = record.RecordByIdReq
-	RecordByUserReq = record.RecordByUserReq
-	RecordDetail    = record.RecordDetail
-	RecordList      = record.RecordList
-	RecordState     = record.RecordState
+	Empty            = record.Empty
+	RecordByIdReq    = record.RecordByIdReq
+	RecordByUserReq  = record.RecordByUserReq
+	RecordDetail     = record.RecordDetail
+	RecordList       = record.RecordList
+	RecordState      = record.RecordState
+	SuccessStatistic = record.SuccessStatistic
 
 	Record interface {
 		GetRecordByUser(ctx context.Context, in *RecordByUserReq) (*RecordList, error)
 		GetRecordById(ctx context.Context, in *RecordByIdReq) (*RecordDetail, error)
 		AddRecord(ctx context.Context, in *RecordDetail) (*RecordByIdReq, error)
 		GetRecordStatus(ctx context.Context, in *RecordByIdReq) (*RecordState, error)
+		GetUserSuccessStatistic(ctx context.Context, in *RecordByUserReq) (*SuccessStatistic, error)
 	}
 
 	defaultRecord struct {
@@ -55,4 +57,9 @@ func (m *defaultRecord) AddRecord(ctx context.Context, in *RecordDetail) (*Recor
 func (m *defaultRecord) GetRecordStatus(ctx context.Context, in *RecordByIdReq) (*RecordState, error) {
 	client := record.NewRecordClient(m.cli.Conn())
 	return client.GetRecordStatus(ctx, in)
+}
+
+func (m *defaultRecord) GetUserSuccessStatistic(ctx context.Context, in *RecordByUserReq) (*SuccessStatistic, error) {
+	client := record.NewRecordClient(m.cli.Conn())
+	return client.GetUserSuccessStatistic(ctx, in)
 }

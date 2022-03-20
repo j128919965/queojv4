@@ -111,7 +111,7 @@ func (svc *ServiceContext) submitJava(record *model.Record) {
 	}
 
 	logx.Info(fmt.Sprintf("judge java {%d} success .", record.Id))
-	svc.UpdateRecordResult(record.Id, result.timeUsed, result.spaceUsed)
+	svc.UpdateRecordResult(record.Id, result.timeUsed, result.spaceUsed,record)
 }
 
 func compileJava(code *string) (string, error) {
