@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"queoj/service/solution/internal/model"
 
 	"queoj/service/solution/internal/svc"
 	"queoj/service/solution/solution"
@@ -33,4 +34,14 @@ func (l *GetAllSolutionLogic) GetAllSolution(in *solution.Empty) (*solution.Solu
 		ret = append(ret,ModelToInfo(m))
 	}
 	return &solution.SolutionList{Solutions: ret}, nil
+}
+
+func ModelToInfo(s *model.Solution) *solution.SolutionSummary {
+	return &solution.SolutionSummary{
+		Id:       s.Id,
+		Time:     s.Time,
+		Nickname: s.Nickname,
+		Title:    s.Title,
+		Pid:      s.Pid,
+	}
 }

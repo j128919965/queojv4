@@ -21,6 +21,7 @@ message SolutionSummary {
   string nickname = 3;
   string title = 4;
   string summary = 5;
+  int32 pid = 6;
 }
 
 message SolutionAddReq {

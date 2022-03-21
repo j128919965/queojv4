@@ -31,7 +31,7 @@ func (l *GetAllSolutionByPidLogic) GetAllSolutionByPid(in *solution.AllSolutionB
 	}
 	var ret []*solution.SolutionSummary
 	for _, m := range solutions {
-		ret = append(ret,ModelToSummary(m))
+		ret = append(ret, ModelToSummary(m))
 	}
 	return &solution.SolutionList{Solutions: ret}, nil
 }
@@ -46,11 +46,3 @@ func ModelToSummary(s *model.Solution) *solution.SolutionSummary {
 	}
 }
 
-func ModelToInfo(s *model.Solution) *solution.SolutionSummary {
-	return &solution.SolutionSummary{
-		Id:       s.Id,
-		Time:     s.Time,
-		Nickname: s.Nickname,
-		Title:    s.Title,
-	}
-}

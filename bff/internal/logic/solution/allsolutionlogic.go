@@ -32,14 +32,15 @@ func (l *AllSolutionLogic) AllSolution() (resp *types.SolutionList, err error) {
 
 	var ret []*types.SolutionSummary
 
-	for _,s := range ss.GetSolutions() {
-		ret = append(ret , &types.SolutionSummary{
+	for _, s := range ss.GetSolutions() {
+		ret = append(ret, &types.SolutionSummary{
 			Id:       s.Id,
 			Time:     s.Time,
 			Nickname: s.Nickname,
 			Title:    s.Title,
+			Pid:      s.Pid,
 		})
 	}
 
-	return &types.SolutionList{Solutions: ret},nil
+	return &types.SolutionList{Solutions: ret}, nil
 }

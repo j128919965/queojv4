@@ -161,6 +161,7 @@ type SolutionAddReq struct {
 
 type SolutionSummary struct {
 	Id       uint64 `json:"id"`
+	Pid      int32  `json:"pid"`
 	Time     uint64 `json:"time"`
 	Nickname string `json:"nickname"`
 	Title    string `json:"title"`
