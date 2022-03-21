@@ -18,25 +18,27 @@ go build service/problem/problem.go
 go build service/record/record.go
 go build bff/queoj.go
 
-nohup ./email  > ~/logs/email.log 2>&1 &
-sleep 1
-nohup ./ask  > ~/logs/ask.log 2>&1 &
-sleep 1
-nohup ./solution  > ~/logs/solution.log 2>&1 &
+nohup ./email  > ./logs/email.log 2>&1 &
 sleep 1
 
-nohup ./message  > ~/logs/message.log 2>&1 &
+nohup ./ask  > ./logs/ask.log 2>&1 &
 sleep 1
 
-nohup ./problem  > ~/logs/problem.log 2>&1 &
+nohup ./solution  > ./logs/solution.log 2>&1 &
 sleep 1
 
-nohup ./user  > ~/logs/user.log 2>&1 &
+nohup ./message  > ./logs/message.log 2>&1 &
 sleep 1
 
-nohup ./record  > ~/logs/record.log 2>&1 &
+nohup ./problem  > ./logs/problem.log 2>&1 &
 sleep 1
 
-nohup ./queoj  > ~/logs/queoj.log 2>&1 &
+nohup ./user  > ./logs/user.log 2>&1 &
+sleep 1
+
+nohup ./record  > ./logs/record.log 2>&1 &
+sleep 1
+
+nohup ./queoj  > ./logs/queoj.log 2>&1 &
 
 
