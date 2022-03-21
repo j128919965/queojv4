@@ -47,4 +47,6 @@ service Solution {
   rpc getSolutionDetail (SolutionByIdReq) returns (SolutionDetail);
   rpc getAllSolutionByPid (AllSolutionByPidReq) returns (SolutionList);
   rpc addSolution (SolutionAddReq) returns (Empty);
+  rpc getAllSolution (Empty) returns (SolutionList);
+  rpc delSolution (SolutionByIdReq) returns (Empty);
 }

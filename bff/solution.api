@@ -47,6 +47,9 @@ service queoj-api {
 
     @handler GetAllSolutionByPid
     get /solution/all (AllSolutionByPidReq) returns (SolutionList)
+
+    @handler AllSolution
+    get /solution/all/all returns (SolutionList)
 }
 
 @server (
@@ -56,4 +59,7 @@ service queoj-api {
 service queoj-api {
     @handler AddSolution
     put /solution (SolutionAddReq)
+
+    @handler DeleteSolution
+    post /solution/rem (SolutionByIdReq)
 }

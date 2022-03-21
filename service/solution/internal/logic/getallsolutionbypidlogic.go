@@ -45,3 +45,12 @@ func ModelToSummary(s *model.Solution) *solution.SolutionSummary {
 		Summary:  s.Summary,
 	}
 }
+
+func ModelToInfo(s *model.Solution) *solution.SolutionSummary {
+	return &solution.SolutionSummary{
+		Id:       s.Id,
+		Time:     s.Time,
+		Nickname: s.Nickname,
+		Title:    s.Title,
+	}
+}

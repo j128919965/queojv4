@@ -35,3 +35,13 @@ func (s *SolutionServer) AddSolution(ctx context.Context, in *solution.SolutionA
 	l := logic.NewAddSolutionLogic(ctx, s.svcCtx)
 	return l.AddSolution(in)
 }
+
+func (s *SolutionServer) GetAllSolution(ctx context.Context, in *solution.Empty) (*solution.SolutionList, error) {
+	l := logic.NewGetAllSolutionLogic(ctx, s.svcCtx)
+	return l.GetAllSolution(in)
+}
+
+func (s *SolutionServer) DelSolution(ctx context.Context, in *solution.SolutionByIdReq) (*solution.Empty, error) {
+	l := logic.NewDelSolutionLogic(ctx, s.svcCtx)
+	return l.DelSolution(in)
+}

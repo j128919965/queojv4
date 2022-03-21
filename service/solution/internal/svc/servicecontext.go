@@ -43,3 +43,12 @@ func (svc *ServiceContext) GetAllSolutionsByPid(id int32) ([]*model.Solution,err
 	return solutions,nil
 }
 
+func (svc *ServiceContext) GetAllSolutions() ([]*model.Solution,error) {
+	var solutions []*model.Solution
+	err := svc.Db.Find(&solutions).Error
+	if err != nil {
+		return nil,err
+	}
+	return solutions,nil
+}
+

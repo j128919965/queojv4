@@ -165,6 +165,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/solution/all",
 				Handler: solution.GetAllSolutionByPidHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/solution/all/all",
+				Handler: solution.AllSolutionHandler(serverCtx),
+			},
 		},
 	)
 
@@ -174,6 +179,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodPut,
 				Path:    "/solution",
 				Handler: solution.AddSolutionHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/solution/rem",
+				Handler: solution.DeleteSolutionHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
