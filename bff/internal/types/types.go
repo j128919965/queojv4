@@ -230,3 +230,57 @@ type SuccessStatistic struct {
 	Medium int32 `json:"medium"`
 	Hard   int32 `json:"hard"`
 }
+
+type AskByIdReq struct {
+	Id uint64 `form:"id"`
+}
+
+type AskDetail struct {
+	Id       uint64 `json:"id"`
+	Uid      uint64 `json:"uid"`
+	Time     int64  `json:"time"`
+	Nickname string `json:"nickname"`
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+}
+
+type AskAddReq struct {
+	Nickname string `json:"nickname"`
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+}
+
+type AskSummary struct {
+	Id       uint64 `json:"id"`
+	Uid      uint64 `json:"uid"`
+	Time     int64  `json:"time"`
+	Nickname string `json:"nickname"`
+	Title    string `json:"title"`
+}
+
+type ReplyByIdReq struct {
+	Id uint64 `form:"id"`
+}
+
+type ReplyAddReq struct {
+	AskId    uint64 `json:"askId"`
+	Nickname string `json:"nickname"`
+	Content  string `json:"content"`
+}
+
+type ReplyDetail struct {
+	Id       uint64 `json:"id"`
+	AskId    uint64 `json:"askId"`
+	Uid      uint64 `json:"uid"`
+	Time     int64  `json:"time"`
+	Nickname string `json:"nickname"`
+	Content  string `json:"content"`
+}
+
+type AskList struct {
+	Asks []*AskSummary `json:"asks"`
+}
+
+type ReplyList struct {
+	Replies []*ReplyDetail `json:"replies"`
+}

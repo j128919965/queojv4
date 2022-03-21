@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	ask "queoj/bff/internal/handler/ask"
 	message "queoj/bff/internal/handler/message"
 	problem "queoj/bff/internal/handler/problem"
 	record "queoj/bff/internal/handler/record"
@@ -220,6 +221,62 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodGet,
 				Path:    "/record/status",
 				Handler: record.GetStatusHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/ask/all",
+				Handler: ask.GetAllAskHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/ask",
+				Handler: ask.GetAskByIdHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/ask/replies",
+				Handler: ask.GetAskRepliesHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/ask",
+				Handler: ask.AddAskHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/ask/replies",
+				Handler: ask.AddReplyHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/ask/adm/edit",
+				Handler: ask.EditAskHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/ask/adm/replies/edit",
+				Handler: ask.EditReplyHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/ask/amd/rem",
+				Handler: ask.RemoveAskHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/ask/adm/replies/rem",
+				Handler: ask.RemoveReplyHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
