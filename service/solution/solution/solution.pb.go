@@ -516,7 +516,7 @@ var file_solution_proto_rawDesc = []byte{
 	0x3d, 0x0a, 0x09, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03,
 	0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x63, 0x6c, 0x69,
 	0x65, 0x6e, 0x74, 0x2e, 0x53, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x75, 0x6d, 0x6d,
-	0x61, 0x72, 0x79, 0x52, 0x09, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x32, 0x8e,
+	0x61, 0x72, 0x79, 0x52, 0x09, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x32, 0xd5,
 	0x03, 0x0a, 0x08, 0x53, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x54, 0x0a, 0x11, 0x67,
 	0x65, 0x74, 0x53, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c,
 	0x12, 0x1f, 0x2e, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x63, 0x6c, 0x69, 0x65, 0x6e,
@@ -541,9 +541,13 @@ var file_solution_proto_rawDesc = []byte{
 	0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1f, 0x2e, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69,
 	0x6f, 0x6e, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x2e, 0x53, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f,
 	0x6e, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x1a, 0x15, 0x2e, 0x73, 0x6f, 0x6c, 0x75, 0x74,
-	0x69, 0x6f, 0x6e, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x42,
-	0x0a, 0x5a, 0x08, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x69, 0x6f, 0x6e, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12,
+	0x45, 0x0a, 0x0c, 0x65, 0x64, 0x69, 0x74, 0x53, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x12,
+	0x1e, 0x2e, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74,
+	0x2e, 0x53, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x1a,
+	0x15, 0x2e, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74,
+	0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x42, 0x0a, 0x5a, 0x08, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69,
+	0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -575,13 +579,15 @@ var file_solution_proto_depIdxs = []int32{
 	3, // 3: solutionclient.Solution.addSolution:input_type -> solutionclient.SolutionAddReq
 	0, // 4: solutionclient.Solution.getAllSolution:input_type -> solutionclient.Empty
 	5, // 5: solutionclient.Solution.delSolution:input_type -> solutionclient.SolutionByIdReq
-	1, // 6: solutionclient.Solution.getSolutionDetail:output_type -> solutionclient.SolutionDetail
-	6, // 7: solutionclient.Solution.getAllSolutionByPid:output_type -> solutionclient.SolutionList
-	0, // 8: solutionclient.Solution.addSolution:output_type -> solutionclient.Empty
-	6, // 9: solutionclient.Solution.getAllSolution:output_type -> solutionclient.SolutionList
-	0, // 10: solutionclient.Solution.delSolution:output_type -> solutionclient.Empty
-	6, // [6:11] is the sub-list for method output_type
-	1, // [1:6] is the sub-list for method input_type
+	1, // 6: solutionclient.Solution.editSolution:input_type -> solutionclient.SolutionDetail
+	1, // 7: solutionclient.Solution.getSolutionDetail:output_type -> solutionclient.SolutionDetail
+	6, // 8: solutionclient.Solution.getAllSolutionByPid:output_type -> solutionclient.SolutionList
+	0, // 9: solutionclient.Solution.addSolution:output_type -> solutionclient.Empty
+	6, // 10: solutionclient.Solution.getAllSolution:output_type -> solutionclient.SolutionList
+	0, // 11: solutionclient.Solution.delSolution:output_type -> solutionclient.Empty
+	0, // 12: solutionclient.Solution.editSolution:output_type -> solutionclient.Empty
+	7, // [7:13] is the sub-list for method output_type
+	1, // [1:7] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -715,6 +721,7 @@ type SolutionClient interface {
 	AddSolution(ctx context.Context, in *SolutionAddReq, opts ...grpc.CallOption) (*Empty, error)
 	GetAllSolution(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*SolutionList, error)
 	DelSolution(ctx context.Context, in *SolutionByIdReq, opts ...grpc.CallOption) (*Empty, error)
+	EditSolution(ctx context.Context, in *SolutionDetail, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type solutionClient struct {
@@ -770,6 +777,15 @@ func (c *solutionClient) DelSolution(ctx context.Context, in *SolutionByIdReq, o
 	return out, nil
 }
 
+func (c *solutionClient) EditSolution(ctx context.Context, in *SolutionDetail, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/solutionclient.Solution/editSolution", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SolutionServer is the server API for Solution service.
 type SolutionServer interface {
 	GetSolutionDetail(context.Context, *SolutionByIdReq) (*SolutionDetail, error)
@@ -777,6 +793,7 @@ type SolutionServer interface {
 	AddSolution(context.Context, *SolutionAddReq) (*Empty, error)
 	GetAllSolution(context.Context, *Empty) (*SolutionList, error)
 	DelSolution(context.Context, *SolutionByIdReq) (*Empty, error)
+	EditSolution(context.Context, *SolutionDetail) (*Empty, error)
 }
 
 // UnimplementedSolutionServer can be embedded to have forward compatible implementations.
@@ -797,6 +814,9 @@ func (*UnimplementedSolutionServer) GetAllSolution(context.Context, *Empty) (*So
 }
 func (*UnimplementedSolutionServer) DelSolution(context.Context, *SolutionByIdReq) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DelSolution not implemented")
+}
+func (*UnimplementedSolutionServer) EditSolution(context.Context, *SolutionDetail) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditSolution not implemented")
 }
 
 func RegisterSolutionServer(s *grpc.Server, srv SolutionServer) {
@@ -893,6 +913,24 @@ func _Solution_DelSolution_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Solution_EditSolution_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SolutionDetail)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SolutionServer).EditSolution(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/solutionclient.Solution/EditSolution",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SolutionServer).EditSolution(ctx, req.(*SolutionDetail))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Solution_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "solutionclient.Solution",
 	HandlerType: (*SolutionServer)(nil),
@@ -916,6 +954,10 @@ var _Solution_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "delSolution",
 			Handler:    _Solution_DelSolution_Handler,
+		},
+		{
+			MethodName: "editSolution",
+			Handler:    _Solution_EditSolution_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

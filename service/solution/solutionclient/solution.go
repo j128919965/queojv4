@@ -26,6 +26,7 @@ type (
 		AddSolution(ctx context.Context, in *SolutionAddReq) (*Empty, error)
 		GetAllSolution(ctx context.Context, in *Empty) (*SolutionList, error)
 		DelSolution(ctx context.Context, in *SolutionByIdReq) (*Empty, error)
+		EditSolution(ctx context.Context, in *SolutionDetail) (*Empty, error)
 	}
 
 	defaultSolution struct {
@@ -62,4 +63,9 @@ func (m *defaultSolution) GetAllSolution(ctx context.Context, in *Empty) (*Solut
 func (m *defaultSolution) DelSolution(ctx context.Context, in *SolutionByIdReq) (*Empty, error) {
 	client := solution.NewSolutionClient(m.cli.Conn())
 	return client.DelSolution(ctx, in)
+}
+
+func (m *defaultSolution) EditSolution(ctx context.Context, in *SolutionDetail) (*Empty, error) {
+	client := solution.NewSolutionClient(m.cli.Conn())
+	return client.EditSolution(ctx, in)
 }

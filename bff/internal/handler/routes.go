@@ -185,6 +185,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/solution/rem",
 				Handler: solution.DeleteSolutionHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/solution/adm/edit",
+				Handler: solution.AdminEditSolutionHandler(serverCtx),
+			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 	)

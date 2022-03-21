@@ -45,3 +45,8 @@ func (s *SolutionServer) DelSolution(ctx context.Context, in *solution.SolutionB
 	l := logic.NewDelSolutionLogic(ctx, s.svcCtx)
 	return l.DelSolution(in)
 }
+
+func (s *SolutionServer) EditSolution(ctx context.Context, in *solution.SolutionDetail) (*solution.Empty, error) {
+	l := logic.NewEditSolutionLogic(ctx, s.svcCtx)
+	return l.EditSolution(in)
+}

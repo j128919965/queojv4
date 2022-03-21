@@ -50,4 +50,5 @@ service Solution {
   rpc addSolution (SolutionAddReq) returns (Empty);
   rpc getAllSolution (Empty) returns (SolutionList);
   rpc delSolution (SolutionByIdReq) returns (Empty);
+  rpc editSolution (SolutionDetail) returns (Empty);
 }

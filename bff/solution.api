@@ -63,4 +63,7 @@ service queoj-api {
 
     @handler DeleteSolution
     post /solution/rem (SolutionByIdReq)
+
+    @handler AdminEditSolution
+    post /solution/adm/edit (SolutionDetail)
 }
