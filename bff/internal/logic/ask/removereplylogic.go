@@ -2,6 +2,7 @@ package ask
 
 import (
 	"context"
+	"queoj/service/ask/askclient"
 
 	"queoj/bff/internal/svc"
 	"queoj/bff/internal/types"
@@ -24,7 +25,6 @@ func NewRemoveReplyLogic(ctx context.Context, svcCtx *svc.ServiceContext) Remove
 }
 
 func (l *RemoveReplyLogic) RemoveReply(req types.AskByIdReq) error {
-	// todo: add your logic here and delete this line
-
-	return nil
+	_, err := l.svcCtx.AskClient.RemoveReply(l.ctx, &askclient.ReplyByIdReq{Id: req.Id})
+	return err
 }

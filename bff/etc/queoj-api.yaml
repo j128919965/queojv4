@@ -38,3 +38,9 @@ RecordClient:
     Hosts:
       - localhost:2379
     Key: record.rpc
+
+AskClient:
+  Etcd:
+    Hosts:
+      - localhost:2379
+    Key: ask.rpc

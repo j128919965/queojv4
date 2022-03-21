@@ -2,6 +2,7 @@ package ask
 
 import (
 	"context"
+	"queoj/service/ask/askclient"
 
 	"queoj/bff/internal/svc"
 	"queoj/bff/internal/types"
@@ -24,7 +25,16 @@ func NewGetAskByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) GetAskB
 }
 
 func (l *GetAskByIdLogic) GetAskById(req types.AskByIdReq) (resp *types.AskDetail, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+	a, err := l.svcCtx.AskClient.GetAskById(l.ctx, &askclient.AskByIdReq{Id: req.Id})
+	if err != nil {
+		return nil, err
+	}
+	return &types.AskDetail{
+		Id:       a.Id,
+		Uid:      a.Uid,
+		Time:     a.Time,
+		Nickname: a.Nickname,
+		Title:    a.Title,
+		Content:  a.Content,
+	},nil
 }

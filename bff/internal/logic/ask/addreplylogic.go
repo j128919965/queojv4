@@ -2,6 +2,9 @@ package ask
 
 import (
 	"context"
+	"github.com/j128919965/gopkg/security"
+	"queoj/service/ask/askclient"
+	"time"
 
 	"queoj/bff/internal/svc"
 	"queoj/bff/internal/types"
@@ -24,7 +27,13 @@ func NewAddReplyLogic(ctx context.Context, svcCtx *svc.ServiceContext) AddReplyL
 }
 
 func (l *AddReplyLogic) AddReply(req types.ReplyAddReq) error {
-	// todo: add your logic here and delete this line
-
-	return nil
+	userId := l.ctx.Value("payload").(*security.PayLoad).UserId
+	_, err := l.svcCtx.AskClient.AddReply(l.ctx,&askclient.ReplyDetail{
+		AskId:    req.AskId,
+		Uid:      userId,
+		Time:     time.Now().Unix(),
+		Nickname: req.Nickname,
+		Content:  req.Content,
+	})
+	return err
 }

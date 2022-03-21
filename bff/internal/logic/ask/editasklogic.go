@@ -2,6 +2,7 @@ package ask
 
 import (
 	"context"
+	"queoj/service/ask/askclient"
 
 	"queoj/bff/internal/svc"
 	"queoj/bff/internal/types"
@@ -23,8 +24,14 @@ func NewEditAskLogic(ctx context.Context, svcCtx *svc.ServiceContext) EditAskLog
 	}
 }
 
-func (l *EditAskLogic) EditAsk(req types.AskDetail) error {
-	// todo: add your logic here and delete this line
-
-	return nil
+func (l *EditAskLogic) EditAsk(a types.AskDetail) error {
+	_, err := l.svcCtx.AskClient.EditAsk(l.ctx, &askclient.AskDetail{
+		Id:       a.Id,
+		Uid:      a.Uid,
+		Time:     a.Time,
+		Nickname: a.Nickname,
+		Title:    a.Title,
+		Content:  a.Content,
+	})
+	return err
 }

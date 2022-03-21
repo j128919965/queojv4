@@ -2,6 +2,9 @@ package ask
 
 import (
 	"context"
+	"github.com/j128919965/gopkg/security"
+	"queoj/service/ask/askclient"
+	"time"
 
 	"queoj/bff/internal/svc"
 	"queoj/bff/internal/types"
@@ -24,7 +27,13 @@ func NewAddAskLogic(ctx context.Context, svcCtx *svc.ServiceContext) AddAskLogic
 }
 
 func (l *AddAskLogic) AddAsk(req types.AskAddReq) error {
-	// todo: add your logic here and delete this line
-
-	return nil
+	userId := l.ctx.Value("payload").(*security.PayLoad).UserId
+	_, err := l.svcCtx.AskClient.AddAsk(l.ctx,&askclient.AskDetail{
+		Uid:      userId,
+		Time:     time.Now().Unix(),
+		Nickname: req.Nickname,
+		Title:    req.Title,
+		Content:  req.Content,
+	})
+	return err
 }

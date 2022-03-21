@@ -2,6 +2,7 @@ package ask
 
 import (
 	"context"
+	"queoj/service/ask/askclient"
 
 	"queoj/bff/internal/svc"
 	"queoj/bff/internal/types"
@@ -24,7 +25,20 @@ func NewGetAskRepliesLogic(ctx context.Context, svcCtx *svc.ServiceContext) GetA
 }
 
 func (l *GetAskRepliesLogic) GetAskReplies(req types.AskByIdReq) (resp *types.ReplyList, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+	rs, err := l.svcCtx.AskClient.GetReplyByAskId(l.ctx, &askclient.AskByIdReq{Id: req.Id})
+	if err != nil {
+		return nil, err
+	}
+	var ret []*types.ReplyDetail
+	for _, r := range rs.Replies {
+		ret = append(ret , &types.ReplyDetail{
+			Id:       r.Id,
+			AskId:    r.AskId,
+			Uid:      r.Uid,
+			Time:     r.Time,
+			Nickname: r.Nickname,
+			Content:  r.Content,
+		})
+	}
+	return &types.ReplyList{Replies: ret},nil
 }

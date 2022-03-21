@@ -18,4 +18,5 @@ type Config struct {
 	SolutionClient zrpc.RpcClientConf
 	MessageClient zrpc.RpcClientConf
 	RecordClient zrpc.RpcClientConf
+	AskClient zrpc.RpcClientConf
 }
