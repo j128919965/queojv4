@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package askclient;
+
+option go_package = "ask";
+
+message Empty {}
+
+message AskDetail {
+  uint64 id = 1;
+  uint64 uid = 2;
+  int64  time = 3;
+  string nickname = 4;
+  string title = 5;
+  string content = 6;
+}
+
+message AskSummary {
+  uint64 id = 1;
+  uint64 uid = 2;
+  int64  time = 3;
+  string nickname = 4;
+  string title = 5;
+}
+
+message ReplyDetail {
+  uint64 id = 1;
+  uint64 askId = 2;
+  uint64 uid = 3;
+  int64  time = 4;
+  string nickname = 5;
+  string content = 6;
+}
+
+message AskByIdReq {
+  int32 id = 1;
+}
+
+message ReplyByIdReq {
+  int32 id = 1;
+}
+
+message AskList {
+  repeated AskSummary asks = 1;
+}
+
+message ReplyList {
+  repeated ReplyDetail replies = 1;
+}
+
+service Ask {
+  rpc getAskById (AskByIdReq) returns (AskSummary);
+  rpc getAllAsk (Empty) returns (AskList);
+  rpc addAsk (AskDetail) returns (Empty);
+  rpc editAsk (AskDetail) returns (Empty);
+  rpc addReply (ReplyDetail) returns (Empty);
+  rpc editReply (ReplyDetail) returns (Empty);
+  rpc removeAsk (AskByIdReq) returns (Empty);
+  rpc removeReply (ReplyByIdReq) returns (Empty);
+}
