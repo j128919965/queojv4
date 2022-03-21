@@ -22,8 +22,9 @@ type (
 	ReplyList    = ask.ReplyList
 
 	Ask interface {
-		GetAskById(ctx context.Context, in *AskByIdReq) (*AskSummary, error)
+		GetAskById(ctx context.Context, in *AskByIdReq) (*AskDetail, error)
 		GetAllAsk(ctx context.Context, in *Empty) (*AskList, error)
+		GetReplyByAskId(ctx context.Context, in *AskByIdReq) (*ReplyList, error)
 		AddAsk(ctx context.Context, in *AskDetail) (*Empty, error)
 		EditAsk(ctx context.Context, in *AskDetail) (*Empty, error)
 		AddReply(ctx context.Context, in *ReplyDetail) (*Empty, error)
@@ -43,7 +44,7 @@ func NewAsk(cli zrpc.Client) Ask {
 	}
 }
 
-func (m *defaultAsk) GetAskById(ctx context.Context, in *AskByIdReq) (*AskSummary, error) {
+func (m *defaultAsk) GetAskById(ctx context.Context, in *AskByIdReq) (*AskDetail, error) {
 	client := ask.NewAskClient(m.cli.Conn())
 	return client.GetAskById(ctx, in)
 }
@@ -51,6 +52,11 @@ func (m *defaultAsk) GetAskById(ctx context.Context, in *AskByIdReq) (*AskSummar
 func (m *defaultAsk) GetAllAsk(ctx context.Context, in *Empty) (*AskList, error) {
 	client := ask.NewAskClient(m.cli.Conn())
 	return client.GetAllAsk(ctx, in)
+}
+
+func (m *defaultAsk) GetReplyByAskId(ctx context.Context, in *AskByIdReq) (*ReplyList, error) {
+	client := ask.NewAskClient(m.cli.Conn())
+	return client.GetReplyByAskId(ctx, in)
 }
 
 func (m *defaultAsk) AddAsk(ctx context.Context, in *AskDetail) (*Empty, error) {

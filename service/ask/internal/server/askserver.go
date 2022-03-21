@@ -21,7 +21,7 @@ func NewAskServer(svcCtx *svc.ServiceContext) *AskServer {
 	}
 }
 
-func (s *AskServer) GetAskById(ctx context.Context, in *ask.AskByIdReq) (*ask.AskSummary, error) {
+func (s *AskServer) GetAskById(ctx context.Context, in *ask.AskByIdReq) (*ask.AskDetail, error) {
 	l := logic.NewGetAskByIdLogic(ctx, s.svcCtx)
 	return l.GetAskById(in)
 }
@@ -29,6 +29,11 @@ func (s *AskServer) GetAskById(ctx context.Context, in *ask.AskByIdReq) (*ask.As
 func (s *AskServer) GetAllAsk(ctx context.Context, in *ask.Empty) (*ask.AskList, error) {
 	l := logic.NewGetAllAskLogic(ctx, s.svcCtx)
 	return l.GetAllAsk(in)
+}
+
+func (s *AskServer) GetReplyByAskId(ctx context.Context, in *ask.AskByIdReq) (*ask.ReplyList, error) {
+	l := logic.NewGetReplyByAskIdLogic(ctx, s.svcCtx)
+	return l.GetReplyByAskId(in)
 }
 
 func (s *AskServer) AddAsk(ctx context.Context, in *ask.AskDetail) (*ask.Empty, error) {

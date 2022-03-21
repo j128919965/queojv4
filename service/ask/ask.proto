@@ -33,11 +33,11 @@ message ReplyDetail {
 }
 
 message AskByIdReq {
-  int32 id = 1;
+  uint64 id = 1;
 }
 
 message ReplyByIdReq {
-  int32 id = 1;
+  uint64 id = 1;
 }
 
 message AskList {
@@ -49,8 +49,9 @@ message ReplyList {
 }
 
 service Ask {
-  rpc getAskById (AskByIdReq) returns (AskSummary);
+  rpc getAskById (AskByIdReq) returns (AskDetail);
   rpc getAllAsk (Empty) returns (AskList);
+  rpc getReplyByAskId (AskByIdReq) returns (ReplyList);
   rpc addAsk (AskDetail) returns (Empty);
   rpc editAsk (AskDetail) returns (Empty);
   rpc addReply (ReplyDetail) returns (Empty);

@@ -23,6 +23,10 @@ func NewGetAskByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetAsk
 	}
 }
 
-func (l *GetAskByIdLogic) GetAskById(in *ask.AskByIdReq) (*ask.AskSummary, error) {
-	return &ask.AskSummary{}, nil
+func (l *GetAskByIdLogic) GetAskById(in *ask.AskByIdReq) (*ask.AskDetail, error) {
+	id, err := l.svcCtx.GetAskById(in.GetId())
+	if err != nil {
+		return nil, err
+	}
+	return ModelAskToProtoAsk(id), nil
 }
