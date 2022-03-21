@@ -24,7 +24,6 @@ func NewEditReplyLogic(ctx context.Context, svcCtx *svc.ServiceContext) *EditRep
 }
 
 func (l *EditReplyLogic) EditReply(in *ask.ReplyDetail) (*ask.Empty, error) {
-	// todo: add your logic here and delete this line
-
+	l.svcCtx.Db.Save(ProtoReplyToModelReply(in))
 	return &ask.Empty{}, nil
 }

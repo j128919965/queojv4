@@ -24,7 +24,5 @@ func NewGetAskByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetAsk
 }
 
 func (l *GetAskByIdLogic) GetAskById(in *ask.AskByIdReq) (*ask.AskSummary, error) {
-	// todo: add your logic here and delete this line
-
 	return &ask.AskSummary{}, nil
 }

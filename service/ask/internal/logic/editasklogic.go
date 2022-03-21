@@ -24,7 +24,6 @@ func NewEditAskLogic(ctx context.Context, svcCtx *svc.ServiceContext) *EditAskLo
 }
 
 func (l *EditAskLogic) EditAsk(in *ask.AskDetail) (*ask.Empty, error) {
-	// todo: add your logic here and delete this line
-
+	l.svcCtx.Db.Save(ProtoAskToModelAsk(in))
 	return &ask.Empty{}, nil
 }

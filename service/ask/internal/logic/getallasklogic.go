@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"queoj/service/ask/internal/model"
 
 	"queoj/service/ask/ask"
 	"queoj/service/ask/internal/svc"
@@ -23,8 +24,33 @@ func NewGetAllAskLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetAllA
 	}
 }
 
-func (l *GetAllAskLogic) GetAllAsk(in *ask.Empty) (*ask.AskList, error) {
-	// todo: add your logic here and delete this line
-
-	return &ask.AskList{}, nil
+func (l *GetAllAskLogic) GetAllAsk(_ *ask.Empty) (*ask.AskList, error) {
+	allAsk := l.svcCtx.GetAllAsk()
+	var res []*ask.AskSummary
+	for _, a := range allAsk {
+		res = append(res,ModelAskToProtoAskSummary(a))
+	}
+	return &ask.AskList{Asks: res}, nil
 }
+
+func ModelAskToProtoAsk(a *model.Ask) *ask.AskDetail{
+	return &ask.AskDetail{
+		Id:       a.Id,
+		Uid:      a.Uid,
+		Time:     a.Time,
+		Nickname: a.Nickname,
+		Title:    a.Title,
+		Content:  a.Content,
+	}
+}
+
+func ModelAskToProtoAskSummary(a *model.Ask) *ask.AskSummary{
+	return &ask.AskSummary{
+		Id:       a.Id,
+		Uid:      a.Uid,
+		Time:     a.Time,
+		Nickname: a.Nickname,
+		Title:    a.Title,
+	}
+}
+

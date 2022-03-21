@@ -109,7 +109,7 @@ func (svc *ServiceContext) UpdateUserRecordStatistic(userId uint64,level int32) 
 	}
 }
 
-const JudgeUrl = `http://localhost:5050/run`
+const JudgeUrl = `http://localhost:5555/run`
 
 func (svc *ServiceContext) SubmitRecord(record *model.Record) {
 	logx.Info("start judge {%d}", record.Id)

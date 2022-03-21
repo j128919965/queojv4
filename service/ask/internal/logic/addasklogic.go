@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"queoj/service/ask/internal/model"
 
 	"queoj/service/ask/ask"
 	"queoj/service/ask/internal/svc"
@@ -24,7 +25,17 @@ func NewAddAskLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddAskLogi
 }
 
 func (l *AddAskLogic) AddAsk(in *ask.AskDetail) (*ask.Empty, error) {
-	// todo: add your logic here and delete this line
-
+	l.svcCtx.Db.Create(ProtoAskToModelAsk(in))
 	return &ask.Empty{}, nil
+}
+
+func ProtoAskToModelAsk(a *ask.AskDetail) *model.Ask {
+	return &model.Ask{
+		Id:       a.Id,
+		Uid:      a.Uid,
+		Time:     a.Time,
+		Nickname: a.Nickname,
+		Title:    a.Title,
+		Content:  a.Content,
+	}
 }

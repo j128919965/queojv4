@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"queoj/service/ask/internal/model"
 
 	"queoj/service/ask/ask"
 	"queoj/service/ask/internal/svc"
@@ -24,7 +25,17 @@ func NewAddReplyLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddReply
 }
 
 func (l *AddReplyLogic) AddReply(in *ask.ReplyDetail) (*ask.Empty, error) {
-	// todo: add your logic here and delete this line
-
+	l.svcCtx.Db.Create(ProtoReplyToModelReply(in))
 	return &ask.Empty{}, nil
+}
+
+func ProtoReplyToModelReply(r *ask.ReplyDetail) * model.Reply{
+	return &model.Reply{
+		Id:       r.Id,
+		Uid:      r.Uid,
+		AskId:    r.AskId,
+		Time:     r.Time,
+		Nickname: r.Nickname,
+		Content:  r.Content,
+	}
 }
