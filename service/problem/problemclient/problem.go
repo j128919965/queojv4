@@ -12,15 +12,16 @@ import (
 )
 
 type (
-	AllProblemStatistic = problem.AllProblemStatistic
-	Empty               = problem.Empty
-	Integer             = problem.Integer
-	ProblemDetail       = problem.ProblemDetail
-	ProblemIO           = problem.ProblemIO
-	ProblemPage         = problem.ProblemPage
-	ProblemSynopsis     = problem.ProblemSynopsis
-	ProblemsByTagReq    = problem.ProblemsByTagReq
-	Result              = problem.Result
+	AddOrUpdateProblemReq = problem.AddOrUpdateProblemReq
+	AllProblemStatistic   = problem.AllProblemStatistic
+	Empty                 = problem.Empty
+	Integer               = problem.Integer
+	ProblemDetail         = problem.ProblemDetail
+	ProblemIO             = problem.ProblemIO
+	ProblemPage           = problem.ProblemPage
+	ProblemSynopsis       = problem.ProblemSynopsis
+	ProblemsByTagReq      = problem.ProblemsByTagReq
+	Result                = problem.Result
 
 	Problem interface {
 		GetProblemDetail(ctx context.Context, in *Integer) (*ProblemDetail, error)
@@ -28,6 +29,7 @@ type (
 		GetProblemIO(ctx context.Context, in *Integer) (*ProblemIO, error)
 		GetProblemsByTags(ctx context.Context, in *ProblemsByTagReq) (*ProblemPage, error)
 		GetAllProblemStatistic(ctx context.Context, in *Empty) (*AllProblemStatistic, error)
+		AddOrUpdateProblem(ctx context.Context, in *AddOrUpdateProblemReq) (*Empty, error)
 	}
 
 	defaultProblem struct {
@@ -64,4 +66,9 @@ func (m *defaultProblem) GetProblemsByTags(ctx context.Context, in *ProblemsByTa
 func (m *defaultProblem) GetAllProblemStatistic(ctx context.Context, in *Empty) (*AllProblemStatistic, error) {
 	client := problem.NewProblemClient(m.cli.Conn())
 	return client.GetAllProblemStatistic(ctx, in)
+}
+
+func (m *defaultProblem) AddOrUpdateProblem(ctx context.Context, in *AddOrUpdateProblemReq) (*Empty, error) {
+	client := problem.NewProblemClient(m.cli.Conn())
+	return client.AddOrUpdateProblem(ctx, in)
 }

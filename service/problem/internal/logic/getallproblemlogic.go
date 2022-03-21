@@ -61,3 +61,25 @@ func ProblemToProblemDetail (p *model.Problem , tags []int32) *problem.ProblemDe
 	}
 	return &s
 }
+
+func DetailToProblem (p *problem.ProblemDetail ) (*model.Problem,[]*model.ProblemTag) {
+	var arr []int32
+	_ = json.Unmarshal([]byte(p.Tags), &arr)
+	s := model.Problem{
+		Id:          p.Id,
+		Name:        p.Name,
+		Point:       p.Point,
+		Level:       p.Level,
+		Description: p.Description,
+		TimeLimit:   p.TimeLimit,
+		SpaceLimit:  p.SpaceLimit,
+	}
+	var tags []*model.ProblemTag
+	for _, tid := range arr {
+		tags = append(tags , &model.ProblemTag{
+			Pid: s.Id,
+			Tid: tid,
+		})
+	}
+	return &s,tags
+}

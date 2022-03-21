@@ -45,3 +45,8 @@ func (s *ProblemServer) GetAllProblemStatistic(ctx context.Context, in *problem.
 	l := logic.NewGetAllProblemStatisticLogic(ctx, s.svcCtx)
 	return l.GetAllProblemStatistic(in)
 }
+
+func (s *ProblemServer) AddOrUpdateProblem(ctx context.Context, in *problem.AddOrUpdateProblemReq) (*problem.Empty, error) {
+	l := logic.NewAddOrUpdateProblemLogic(ctx, s.svcCtx)
+	return l.AddOrUpdateProblem(in)
+}

@@ -47,6 +47,11 @@ message ProblemIO {
   string outTxt = 4;
 }
 
+message AddOrUpdateProblemReq {
+    ProblemDetail detail = 1;
+    ProblemIO io = 2;
+}
+
 message AllProblemStatistic {
   int32 easy = 1;
   int32 medium = 2;
@@ -61,4 +66,5 @@ service Problem {
   rpc getProblemIO(Integer) returns (ProblemIO);
   rpc getProblemsByTags(ProblemsByTagReq) returns (ProblemPage);
   rpc getAllProblemStatistic(Empty) returns (AllProblemStatistic);
+  rpc addOrUpdateProblem(AddOrUpdateProblemReq) returns (Empty);
 }

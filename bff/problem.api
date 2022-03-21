@@ -27,6 +27,12 @@ type ProblemDetail struct {
     SpaceLimit  uint64 `json:"spaceLimit"`
 }
 
+type ProblemAddOrUpdateDto struct {
+    Detail *ProblemDetail `json:"detail"`
+    InText string `json:"inText"`
+    OutText string `json:"outText"`
+}
+
 type ProblemHotVO struct {
     Id int32 `json:"id"`
     Name string `json:"name"`
@@ -73,4 +79,13 @@ service queoj-api {
 
     @handler GetStatistic
     get /pro/statistic returns (AllProblemStatistic);
+}
+
+@server (
+    group : problem
+    jwt :Auth
+)
+service queoj-api {
+    @handler AddOrUpdateProblem
+    post /pro (ProblemAddOrUpdateDto)
 }
