@@ -144,6 +144,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/pro",
 				Handler: problem.AddOrUpdateProblemHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/pro/io",
+				Handler: problem.GetProblemIOHandler(serverCtx),
+			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 	)

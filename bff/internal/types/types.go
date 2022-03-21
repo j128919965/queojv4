@@ -113,6 +113,11 @@ type ProblemDetail struct {
 	SpaceLimit  uint64 `json:"spaceLimit"`
 }
 
+type ProblemIO struct {
+	InText  string `json:"inText"`
+	OutText string `json:"outText"`
+}
+
 type ProblemAddOrUpdateDto struct {
 	Detail  *ProblemDetail `json:"detail"`
 	InText  string         `json:"inText"`
