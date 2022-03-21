@@ -17,7 +17,7 @@ type ProblemSynopsis struct {
 }
 
 type ProblemDetail struct {
-    Id          int32 `json:"id"`
+    Id          int32 `json:"id,optional"`
     Name        string `json:"name"`
     Point       int32 `json:"point"`
     Level       int32 `json:"level"`
