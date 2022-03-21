@@ -24,7 +24,7 @@ func NewRemoveAskLogic(ctx context.Context, svcCtx *svc.ServiceContext) *RemoveA
 }
 
 func (l *RemoveAskLogic) RemoveAsk(in *ask.AskByIdReq) (*ask.Empty, error) {
-	// todo: add your logic here and delete this line
-
+	l.svcCtx.Db.Exec("delete from asks where id = ?",in.Id)
+	l.svcCtx.Db.Exec("delete from replies where ask_id = ?",in.Id)
 	return &ask.Empty{}, nil
 }

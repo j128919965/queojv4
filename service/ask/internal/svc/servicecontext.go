@@ -27,7 +27,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 func (svc *ServiceContext) GetAllAsk() []*model.Ask {
 	var asks []*model.Ask
-	svc.Db.Select([]string{"id","uid","time","nick_name","title"}).Find(&asks)
+	svc.Db.Select([]string{"id","uid","time","nickname","title"}).Find(&asks)
 	return asks
 }
 
@@ -42,6 +42,7 @@ func (svc *ServiceContext) GetAskById(id uint64) (*model.Ask,error){
 
 func (svc *ServiceContext) GetRepliesByAsk(askId uint64) []*model.Reply{
 	var replies []*model.Reply
-	svc.Db.Where("ask_id = ?",askId).Find(&replies)
+	svc.Db.Where("ask_id = ?", askId).Find(&replies)
+
 	return replies
 }

@@ -26,7 +26,7 @@ func NewGetReplyByAskIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 
 func (l *GetReplyByAskIdLogic) GetReplyByAskId(in *ask.AskByIdReq) (*ask.ReplyList, error) {
 	rs := l.svcCtx.GetRepliesByAsk(in.Id)
-	var ret []*ask.ReplyDetail
+	var ret = []*ask.ReplyDetail{}
 	for _, r := range rs {
 		ret = append(ret,ModelReplyToProtoReply(r))
 	}

@@ -24,7 +24,6 @@ func NewRemoveReplyLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Remov
 }
 
 func (l *RemoveReplyLogic) RemoveReply(in *ask.ReplyByIdReq) (*ask.Empty, error) {
-	// todo: add your logic here and delete this line
-
+	l.svcCtx.Db.Exec("delete from replies where id = ?",in.Id)
 	return &ask.Empty{}, nil
 }

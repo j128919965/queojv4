@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-
 	"queoj/service/ask/ask"
 	"queoj/service/ask/internal/config"
 	"queoj/service/ask/internal/server"
