@@ -73,6 +73,26 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/user/rank",
 				Handler: user.GetUserRankHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/pe",
+				Handler: user.PEReqHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/user/pe",
+				Handler: user.PEGetHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/user/pe/all",
+				Handler: user.AllPEHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/pe/app",
+				Handler: user.AppPeHandler(serverCtx),
+			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 	)

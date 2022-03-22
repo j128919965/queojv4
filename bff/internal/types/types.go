@@ -75,6 +75,28 @@ type UserRank struct {
 	Rank int32 `json:"rank"`
 }
 
+type PrivilegeEscalationReq struct {
+	Role   uint32 `json:"role"`
+	Reason string `json:"reason"`
+}
+
+type PrivilegeEscalationDetail struct {
+	Id       uint64 `json:"id"`
+	UserId   uint64 `json:"userId"`
+	Role     uint32 `json:"role"`
+	Reason   string `json:"reason"`
+	Approval int32  `json:"approval"`
+}
+
+type PEList struct {
+	Pes []*PrivilegeEscalationDetail `json:"pes"`
+}
+
+type ApprovalPrivilegeEscalationReq struct {
+	Id       uint64 `json:"id"`
+	Approval int32  `json:"approval"`
+}
+
 type MessageByIdReq struct {
 	Id uint64 `form:"id",json:"id"`
 }
