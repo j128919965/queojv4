@@ -39,6 +39,7 @@ func (l *GetAllSolutionByPidLogic) GetAllSolutionByPid(req types.AllSolutionByPi
 			Nickname: s.Nickname,
 			Title:    s.Title,
 			Summary:  s.Summary,
+			IsTeacher: s.IsTeacher,
 		})
 	}
 

@@ -2,6 +2,8 @@ package user
 
 import (
 	"context"
+	"github.com/j128919965/gopkg/security"
+	"queoj/service/user/userclient"
 
 	"queoj/bff/internal/svc"
 	"queoj/bff/internal/types"
@@ -24,7 +26,11 @@ func NewPEGetLogic(ctx context.Context, svcCtx *svc.ServiceContext) PEGetLogic {
 }
 
 func (l *PEGetLogic) PEGet() (resp *types.PrivilegeEscalationDetail, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+	payLoad := l.ctx.Value("payload").(*security.PayLoad)
+	escalation, err := l.svcCtx.UserClient.GetUserPrivilegeEscalation(l.ctx, &userclient.RankByUserIdReq{Id: payLoad.UserId})
+	if err != nil {
+		return nil, err
+	}
+	return ProtoPeDetailToJson(escalation),nil
 }
+

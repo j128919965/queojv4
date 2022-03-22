@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"queoj/service/user/internal/model"
 
 	"queoj/service/user/internal/svc"
 	"queoj/service/user/user"
@@ -24,7 +25,12 @@ func NewRequestPrivilegeEscalationLogic(ctx context.Context, svcCtx *svc.Service
 }
 
 func (l *RequestPrivilegeEscalationLogic) RequestPrivilegeEscalation(in *user.PrivilegeEscalationReq) (*user.Result, error) {
-	// todo: add your logic here and delete this line
-
+	l.svcCtx.Db.Create(&model.PeReq{
+		ID:       0,
+		UserId:   in.UserId,
+		Role:     in.Role,
+		Reason:   in.Reason,
+		Approval: 0,
+	})
 	return &user.Result{}, nil
 }

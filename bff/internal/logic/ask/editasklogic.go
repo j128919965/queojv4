@@ -2,6 +2,8 @@ package ask
 
 import (
 	"context"
+	"github.com/j128919965/gopkg/errors"
+	"github.com/j128919965/gopkg/security"
 	"queoj/service/ask/askclient"
 
 	"queoj/bff/internal/svc"
@@ -25,6 +27,10 @@ func NewEditAskLogic(ctx context.Context, svcCtx *svc.ServiceContext) EditAskLog
 }
 
 func (l *EditAskLogic) EditAsk(a types.AskDetail) error {
+	payLoad := l.ctx.Value("payload").(*security.PayLoad)
+	if payLoad.Role < 2 {
+		return errors.New("权限不足",400)
+	}
 	_, err := l.svcCtx.AskClient.EditAsk(l.ctx, &askclient.AskDetail{
 		Id:       a.Id,
 		Uid:      a.Uid,

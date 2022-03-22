@@ -39,5 +39,6 @@ func (l *GetSolutionByIdLogic) GetSolutionById(req types.SolutionByIdReq) (resp 
 		Title:    d.Title,
 		Summary:  d.Summary,
 		Content:  d.Content,
+		IsTeacher: d.IsTeacher,
 	},nil
 }

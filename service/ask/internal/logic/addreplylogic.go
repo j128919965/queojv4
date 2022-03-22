@@ -37,5 +37,6 @@ func ProtoReplyToModelReply(r *ask.ReplyDetail) * model.Reply{
 		Time:     r.Time,
 		Nickname: r.Nickname,
 		Content:  r.Content,
+		IsTeacher: r.IsTeacher,
 	}
 }

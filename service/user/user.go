@@ -39,6 +39,9 @@ func main() {
 	//	logx.Info(rank)
 	//}
 
+	//var p model.PeReq
+	//ctx.Db.Where("user_id = ? and approval = 0" , 1).Find(&p)
+	//fmt.Println(p)
 
 	s.Start()
 }

@@ -38,6 +38,7 @@ func (l *GetAskRepliesLogic) GetAskReplies(req types.AskByIdReq) (resp *types.Re
 			Time:     r.Time,
 			Nickname: r.Nickname,
 			Content:  r.Content,
+			IsTeacher: r.IsTeacher,
 		})
 	}
 	return &types.ReplyList{Replies: ret},nil

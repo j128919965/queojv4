@@ -2,6 +2,8 @@ package user
 
 import (
 	"context"
+	"github.com/j128919965/gopkg/security"
+	"queoj/service/user/userclient"
 
 	"queoj/bff/internal/svc"
 	"queoj/bff/internal/types"
@@ -24,7 +26,11 @@ func NewPEReqLogic(ctx context.Context, svcCtx *svc.ServiceContext) PEReqLogic {
 }
 
 func (l *PEReqLogic) PEReq(req types.PrivilegeEscalationReq) error {
-	// todo: add your logic here and delete this line
-
-	return nil
+	payLoad := l.ctx.Value("payload").(*security.PayLoad)
+	_, err := l.svcCtx.UserClient.RequestPrivilegeEscalation(l.ctx, &userclient.PrivilegeEscalationReq{
+		UserId: payLoad.UserId,
+		Role:   req.Role,
+		Reason: req.Reason,
+	})
+	return err
 }

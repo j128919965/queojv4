@@ -27,7 +27,8 @@ func NewAddAskLogic(ctx context.Context, svcCtx *svc.ServiceContext) AddAskLogic
 }
 
 func (l *AddAskLogic) AddAsk(req types.AskAddReq) error {
-	userId := l.ctx.Value("payload").(*security.PayLoad).UserId
+	payLoad := l.ctx.Value("payload").(*security.PayLoad)
+	userId := payLoad.UserId
 	_, err := l.svcCtx.AskClient.AddAsk(l.ctx,&askclient.AskDetail{
 		Uid:      userId,
 		Time:     time.Now().Unix(),

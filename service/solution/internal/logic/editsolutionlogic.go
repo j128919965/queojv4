@@ -34,6 +34,7 @@ func (l *EditSolutionLogic) EditSolution(in *solution.SolutionDetail) (*solution
 		Title:    in.Title,
 		Summary:  in.Summary,
 		Content:  in.Content,
+		IsTeacher: in.IsTeacher,
 	}
 	err := l.svcCtx.Db.Save(s).Error
 	return &solution.Empty{}, err

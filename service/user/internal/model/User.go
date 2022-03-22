@@ -28,3 +28,11 @@ type UserAccount struct {
 	Coins int32 `gorm:"default:0;not null"`
 	Point int32 `gorm:"default:0;not null;index:idx_point"`
 }
+
+type PeReq struct {
+	ID uint64 `gorm:"primarykey,autoIncrement"`
+	UserId uint64
+	Role uint32
+	Reason string
+	Approval int32 `gorm:"default:0"`
+}

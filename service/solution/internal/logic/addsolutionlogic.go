@@ -40,6 +40,7 @@ func (l *AddSolutionLogic) AddSolution(in *solution.SolutionAddReq) (*solution.E
 		Title:    in.Title,
 		Summary:  summary,
 		Content:  in.Content,
+		IsTeacher: in.IsTeacher,
 	}
 
 	err := l.svcCtx.Db.Create(s).Error

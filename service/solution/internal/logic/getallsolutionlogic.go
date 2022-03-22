@@ -43,5 +43,6 @@ func ModelToInfo(s *model.Solution) *solution.SolutionSummary {
 		Nickname: s.Nickname,
 		Title:    s.Title,
 		Pid:      s.Pid,
+		IsTeacher: s.IsTeacher,
 	}
 }

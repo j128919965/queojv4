@@ -2,6 +2,8 @@ package solution
 
 import (
 	"context"
+	"github.com/j128919965/gopkg/errors"
+	"github.com/j128919965/gopkg/security"
 	"queoj/service/solution/solutionclient"
 
 	"queoj/bff/internal/svc"
@@ -25,6 +27,10 @@ func NewAllSolutionLogic(ctx context.Context, svcCtx *svc.ServiceContext) AllSol
 }
 
 func (l *AllSolutionLogic) AllSolution() (resp *types.SolutionList, err error) {
+	payLoad := l.ctx.Value("payload").(*security.PayLoad)
+	if payLoad.Role < 2 {
+		return nil,errors.New("权限不足",400)
+	}
 	ss, err := l.svcCtx.SolutionClient.GetAllSolution(l.ctx, &solutionclient.Empty{})
 	if err != nil {
 		return nil, err
@@ -39,6 +45,7 @@ func (l *AllSolutionLogic) AllSolution() (resp *types.SolutionList, err error) {
 			Nickname: s.Nickname,
 			Title:    s.Title,
 			Pid:      s.Pid,
+			IsTeacher: s.IsTeacher,
 		})
 	}
 

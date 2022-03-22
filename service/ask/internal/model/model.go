@@ -16,4 +16,5 @@ type Reply struct {
 	Time     int64
 	Nickname string `gorm:"size:50"`
 	Content  string `gorm:"size:511"`
+	IsTeacher bool
 }

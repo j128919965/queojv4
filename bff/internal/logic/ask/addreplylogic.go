@@ -27,13 +27,19 @@ func NewAddReplyLogic(ctx context.Context, svcCtx *svc.ServiceContext) AddReplyL
 }
 
 func (l *AddReplyLogic) AddReply(req types.ReplyAddReq) error {
-	userId := l.ctx.Value("payload").(*security.PayLoad).UserId
+	payLoad := l.ctx.Value("payload").(*security.PayLoad)
+	userId := payLoad.UserId
+	isTeacher := false
+	if payLoad.Role == 2 {
+		isTeacher = true
+	}
 	_, err := l.svcCtx.AskClient.AddReply(l.ctx,&askclient.ReplyDetail{
 		AskId:    req.AskId,
 		Uid:      userId,
 		Time:     time.Now().Unix(),
 		Nickname: req.Nickname,
 		Content:  req.Content,
+		IsTeacher: isTeacher,
 	})
 	return err
 }

@@ -43,6 +43,7 @@ func ModelToSummary(s *model.Solution) *solution.SolutionSummary {
 		Nickname: s.Nickname,
 		Title:    s.Title,
 		Summary:  s.Summary,
+		IsTeacher: s.IsTeacher,
 	}
 }
 

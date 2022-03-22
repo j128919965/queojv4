@@ -8,5 +8,6 @@ type Solution struct {
 	Nickname string `gorm:"size:50"`
 	Title string `gorm:"size:50"`
 	Summary string `gorm:"size:255"`
+	IsTeacher bool
 	Content string
 }

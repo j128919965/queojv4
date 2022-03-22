@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"queoj/service/user/internal/model"
 
 	"queoj/service/user/internal/svc"
 	"queoj/service/user/user"
@@ -24,7 +25,13 @@ func NewGetUserPrivilegeEscalationLogic(ctx context.Context, svcCtx *svc.Service
 }
 
 func (l *GetUserPrivilegeEscalationLogic) GetUserPrivilegeEscalation(in *user.RankByUserIdReq) (*user.PrivilegeEscalationDetail, error) {
-	// todo: add your logic here and delete this line
-
-	return &user.PrivilegeEscalationDetail{}, nil
+	var p model.PeReq
+	l.svcCtx.Db.Where("user_id = ? and approval = 0" , in.Id).Find(&p)
+	return &user.PrivilegeEscalationDetail{
+		Id:       p.ID,
+		UserId:   p.UserId,
+		Role:     p.Role,
+		Reason:   p.Reason,
+		Approval: p.Approval,
+	}, nil
 }

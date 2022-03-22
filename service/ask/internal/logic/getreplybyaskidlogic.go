@@ -41,5 +41,6 @@ func ModelReplyToProtoReply(r *model.Reply) *ask.ReplyDetail {
 		Time:     r.Time,
 		Nickname: r.Nickname,
 		Content:  r.Content,
+		IsTeacher: r.IsTeacher,
 	}
 }

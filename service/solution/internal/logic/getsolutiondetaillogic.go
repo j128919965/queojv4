@@ -42,5 +42,6 @@ func ModelToDetail(s *model.Solution) *solution.SolutionDetail {
 		Title:    s.Title,
 		Summary:  s.Summary,
 		Content:  s.Content,
+		IsTeacher: s.IsTeacher,
 	}
 }

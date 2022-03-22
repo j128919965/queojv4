@@ -26,13 +26,19 @@ func NewAddSolutionLogic(ctx context.Context, svcCtx *svc.ServiceContext) AddSol
 }
 
 func (l *AddSolutionLogic) AddSolution(req types.SolutionAddReq) error {
-	id := l.ctx.Value("payload").(*security.PayLoad).UserId
+	payLoad := l.ctx.Value("payload").(*security.PayLoad)
+	userId := payLoad.UserId
+	isTeacher := false
+	if payLoad.Role == 2 {
+		isTeacher = true
+	}
 	addReq := solutionclient.SolutionAddReq{
 		Pid:      req.Pid,
-		Uid:      id,
+		Uid:      userId,
 		Nickname: req.Nickname,
 		Title:    req.Title,
 		Content:  req.Content,
+		IsTeacher: isTeacher,
 	}
 	_, err := l.svcCtx.SolutionClient.AddSolution(l.ctx, &addReq)
 	return err
