@@ -160,23 +160,25 @@ type SolutionAddReq struct {
 }
 
 type SolutionSummary struct {
-	Id       uint64 `json:"id"`
-	Pid      int32  `json:"pid"`
-	Time     uint64 `json:"time"`
-	Nickname string `json:"nickname"`
-	Title    string `json:"title"`
-	Summary  string `json:"summary"`
+	Id        uint64 `json:"id"`
+	Pid       int32  `json:"pid"`
+	Time      uint64 `json:"time"`
+	Nickname  string `json:"nickname"`
+	Title     string `json:"title"`
+	Summary   string `json:"summary"`
+	IsTeacher bool   `json:"isTeacher"`
 }
 
 type SolutionDetail struct {
-	Id       uint64 `json:"id"`
-	Uid      uint64 `json:"uid"`
-	Pid      int32  `json:"pid"`
-	Time     uint64 `json:"time"`
-	Nickname string `json:"nickname"`
-	Title    string `json:"title"`
-	Summary  string `json:"summary"`
-	Content  string `json:"content"`
+	Id        uint64 `json:"id"`
+	Uid       uint64 `json:"uid"`
+	Pid       int32  `json:"pid"`
+	Time      uint64 `json:"time"`
+	Nickname  string `json:"nickname"`
+	Title     string `json:"title"`
+	Summary   string `json:"summary"`
+	Content   string `json:"content"`
+	IsTeacher bool   `json:"isTeacher"`
 }
 
 type SolutionByIdReq struct {
@@ -269,12 +271,13 @@ type ReplyAddReq struct {
 }
 
 type ReplyDetail struct {
-	Id       uint64 `json:"id"`
-	AskId    uint64 `json:"askId"`
-	Uid      uint64 `json:"uid"`
-	Time     int64  `json:"time"`
-	Nickname string `json:"nickname"`
-	Content  string `json:"content"`
+	Id        uint64 `json:"id"`
+	AskId     uint64 `json:"askId"`
+	Uid       uint64 `json:"uid"`
+	Time      int64  `json:"time"`
+	Nickname  string `json:"nickname"`
+	Content   string `json:"content"`
+	IsTeacher bool   `json:"isTeacher"`
 }
 
 type AskList struct {

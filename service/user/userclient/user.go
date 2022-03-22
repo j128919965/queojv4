@@ -12,31 +12,40 @@ import (
 )
 
 type (
-	AddCoinOrPointReq  = user.AddCoinOrPointReq
-	ChangePasswordReq  = user.ChangePasswordReq
-	ChangeUserInfoReq  = user.ChangeUserInfoReq
-	LoginByCodeReq     = user.LoginByCodeReq
-	LoginByPasswordReq = user.LoginByPasswordReq
-	LoginResult        = user.LoginResult
-	RankByUserIdReq    = user.RankByUserIdReq
-	RefreshReq         = user.RefreshReq
-	Result             = user.Result
-	Tokens             = user.Tokens
-	UserInfo           = user.UserInfo
-	UserInfoReq        = user.UserInfoReq
-	UserInfoReqByEmail = user.UserInfoReqByEmail
-	UserRank           = user.UserRank
+	AddCoinOrPointReq              = user.AddCoinOrPointReq
+	ApprovalPrivilegeEscalationReq = user.ApprovalPrivilegeEscalationReq
+	ChangePasswordReq              = user.ChangePasswordReq
+	ChangeUserInfoReq              = user.ChangeUserInfoReq
+	Empty                          = user.Empty
+	LoginByCodeReq                 = user.LoginByCodeReq
+	LoginByPasswordReq             = user.LoginByPasswordReq
+	LoginResult                    = user.LoginResult
+	PEList                         = user.PEList
+	PrivilegeEscalationDetail      = user.PrivilegeEscalationDetail
+	PrivilegeEscalationReq         = user.PrivilegeEscalationReq
+	RankByUserIdReq                = user.RankByUserIdReq
+	RefreshReq                     = user.RefreshReq
+	Result                         = user.Result
+	Tokens                         = user.Tokens
+	UserInfo                       = user.UserInfo
+	UserInfoReq                    = user.UserInfoReq
+	UserInfoReqByEmail             = user.UserInfoReqByEmail
+	UserRank                       = user.UserRank
 
 	User interface {
 		LoginByPassword(ctx context.Context, in *LoginByPasswordReq) (*LoginResult, error)
 		LoginByCode(ctx context.Context, in *LoginByCodeReq) (*LoginResult, error)
+		SendVerifyEmail(ctx context.Context, in *UserInfoReqByEmail) (*Result, error)
+		RefreshToken(ctx context.Context, in *RefreshReq) (*Tokens, error)
 		AddCoinOrPoint(ctx context.Context, in *AddCoinOrPointReq) (*Result, error)
 		ChangeUserInfo(ctx context.Context, in *ChangeUserInfoReq) (*Result, error)
 		ChangePassword(ctx context.Context, in *ChangePasswordReq) (*Result, error)
+		RequestPrivilegeEscalation(ctx context.Context, in *PrivilegeEscalationReq) (*Result, error)
+		ApprovalPEReq(ctx context.Context, in *ApprovalPrivilegeEscalationReq) (*Result, error)
+		GetAllActivePEReq(ctx context.Context, in *Empty) (*PEList, error)
 		GetUserRank(ctx context.Context, in *RankByUserIdReq) (*UserRank, error)
 		GetUserInfo(ctx context.Context, in *UserInfoReq) (*UserInfo, error)
-		SendVerifyEmail(ctx context.Context, in *UserInfoReqByEmail) (*Result, error)
-		RefreshToken(ctx context.Context, in *RefreshReq) (*Tokens, error)
+		GetUserPrivilegeEscalation(ctx context.Context, in *RankByUserIdReq) (*PrivilegeEscalationDetail, error)
 	}
 
 	defaultUser struct {
@@ -60,6 +69,16 @@ func (m *defaultUser) LoginByCode(ctx context.Context, in *LoginByCodeReq) (*Log
 	return client.LoginByCode(ctx, in)
 }
 
+func (m *defaultUser) SendVerifyEmail(ctx context.Context, in *UserInfoReqByEmail) (*Result, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.SendVerifyEmail(ctx, in)
+}
+
+func (m *defaultUser) RefreshToken(ctx context.Context, in *RefreshReq) (*Tokens, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.RefreshToken(ctx, in)
+}
+
 func (m *defaultUser) AddCoinOrPoint(ctx context.Context, in *AddCoinOrPointReq) (*Result, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.AddCoinOrPoint(ctx, in)
@@ -75,6 +94,21 @@ func (m *defaultUser) ChangePassword(ctx context.Context, in *ChangePasswordReq)
 	return client.ChangePassword(ctx, in)
 }
 
+func (m *defaultUser) RequestPrivilegeEscalation(ctx context.Context, in *PrivilegeEscalationReq) (*Result, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.RequestPrivilegeEscalation(ctx, in)
+}
+
+func (m *defaultUser) ApprovalPEReq(ctx context.Context, in *ApprovalPrivilegeEscalationReq) (*Result, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.ApprovalPEReq(ctx, in)
+}
+
+func (m *defaultUser) GetAllActivePEReq(ctx context.Context, in *Empty) (*PEList, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.GetAllActivePEReq(ctx, in)
+}
+
 func (m *defaultUser) GetUserRank(ctx context.Context, in *RankByUserIdReq) (*UserRank, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.GetUserRank(ctx, in)
@@ -85,12 +119,7 @@ func (m *defaultUser) GetUserInfo(ctx context.Context, in *UserInfoReq) (*UserIn
 	return client.GetUserInfo(ctx, in)
 }
 
-func (m *defaultUser) SendVerifyEmail(ctx context.Context, in *UserInfoReqByEmail) (*Result, error) {
+func (m *defaultUser) GetUserPrivilegeEscalation(ctx context.Context, in *RankByUserIdReq) (*PrivilegeEscalationDetail, error) {
 	client := user.NewUserClient(m.cli.Conn())
-	return client.SendVerifyEmail(ctx, in)
-}
-
-func (m *defaultUser) RefreshToken(ctx context.Context, in *RefreshReq) (*Tokens, error) {
-	client := user.NewUserClient(m.cli.Conn())
-	return client.RefreshToken(ctx, in)
+	return client.GetUserPrivilegeEscalation(ctx, in)
 }

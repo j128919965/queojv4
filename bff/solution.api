@@ -14,6 +14,7 @@ type SolutionSummary struct {
     Nickname string `json:"nickname"`
     Title    string `json:"title"`
     Summary  string `json:"summary"`
+    IsTeacher bool `json:"isTeacher"`
 }
 
 type SolutionDetail struct {
@@ -25,6 +26,7 @@ type SolutionDetail struct {
     Title    string `json:"title"`
     Summary  string `json:"summary"`
     Content  string `json:"content"`
+    IsTeacher bool `json:"isTeacher"`
 }
 
 type SolutionByIdReq struct {

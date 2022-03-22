@@ -8,6 +8,8 @@ message Result {
   bool success = 1;
 }
 
+message Empty {}
+
 message Tokens {
   string accessToken = 1;
   string refreshToken = 2;
@@ -51,7 +53,7 @@ message UserInfoReqByEmail {
 // 优先根据userId查询，如果userId为空，则依据email
 message UserInfoReq {
   optional uint64 userId = 1;
-  optional string email =2;
+  optional string email = 2;
 }
 
 message ChangeUserInfoReq {
@@ -90,18 +92,44 @@ message UserRank {
   int32 value = 1;
 }
 
+message PrivilegeEscalationReq {
+  uint64 userId = 1;
+  uint32 role = 2;
+  string reason = 3;
+}
+
+message PrivilegeEscalationDetail {
+  uint64 id = 1;
+  uint64 userId = 2;
+  uint32 role = 3;
+  string reason = 4;
+  int32  approval = 5;
+}
+
+message PEList{
+  repeated PrivilegeEscalationDetail pes = 1;
+}
+
+message ApprovalPrivilegeEscalationReq {
+  uint64 id = 1;
+  int32 approval = 2;
+}
+
 service User {
   rpc LoginByPassword(LoginByPasswordReq) returns(LoginResult);
   rpc LoginByCode(LoginByCodeReq) returns(LoginResult);
+  rpc SendVerifyEmail(UserInfoReqByEmail) returns (Result);
+  rpc RefreshToken(RefreshReq) returns (Tokens);
 
   rpc AddCoinOrPoint(AddCoinOrPointReq) returns (Result);
   rpc ChangeUserInfo(ChangeUserInfoReq) returns (Result);
   rpc ChangePassword(ChangePasswordReq) returns (Result);
+  rpc RequestPrivilegeEscalation (PrivilegeEscalationReq) returns (Result);
+  rpc ApprovalPEReq(ApprovalPrivilegeEscalationReq) returns (Result);
+  rpc GetAllActivePEReq (Empty) returns (PEList);
+
+
   rpc GetUserRank(RankByUserIdReq) returns (UserRank);
-
   rpc GetUserInfo(UserInfoReq) returns (UserInfo);
-
-  rpc SendVerifyEmail(UserInfoReqByEmail) returns (Result);
-
-  rpc RefreshToken(RefreshReq) returns (Tokens);
+  rpc GetUserPrivilegeEscalation(RankByUserIdReq) returns(PrivilegeEscalationDetail);
 }

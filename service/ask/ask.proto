@@ -30,6 +30,7 @@ message ReplyDetail {
   int64  time = 4;
   string nickname = 5;
   string content = 6;
+  bool isTeacher = 7;
 }
 
 message AskByIdReq {

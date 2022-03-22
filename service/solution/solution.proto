@@ -13,6 +13,7 @@ message SolutionDetail {
   string title = 6;
   string summary = 7;
   string content = 8;
+  bool isTeacher = 9;
 }
 
 message SolutionSummary {
@@ -22,6 +23,7 @@ message SolutionSummary {
   string title = 4;
   string summary = 5;
   int32 pid = 6;
+  bool isTeacher = 7;
 }
 
 message SolutionAddReq {
@@ -30,6 +32,7 @@ message SolutionAddReq {
   string nickname = 3;
   string title = 4;
   string content = 5;
+  bool isTeacher = 6;
 }
 
 message AllSolutionByPidReq {

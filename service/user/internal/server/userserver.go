@@ -31,6 +31,16 @@ func (s *UserServer) LoginByCode(ctx context.Context, in *user.LoginByCodeReq) (
 	return l.LoginByCode(in)
 }
 
+func (s *UserServer) SendVerifyEmail(ctx context.Context, in *user.UserInfoReqByEmail) (*user.Result, error) {
+	l := logic.NewSendVerifyEmailLogic(ctx, s.svcCtx)
+	return l.SendVerifyEmail(in)
+}
+
+func (s *UserServer) RefreshToken(ctx context.Context, in *user.RefreshReq) (*user.Tokens, error) {
+	l := logic.NewRefreshTokenLogic(ctx, s.svcCtx)
+	return l.RefreshToken(in)
+}
+
 func (s *UserServer) AddCoinOrPoint(ctx context.Context, in *user.AddCoinOrPointReq) (*user.Result, error) {
 	l := logic.NewAddCoinOrPointLogic(ctx, s.svcCtx)
 	return l.AddCoinOrPoint(in)
@@ -46,6 +56,21 @@ func (s *UserServer) ChangePassword(ctx context.Context, in *user.ChangePassword
 	return l.ChangePassword(in)
 }
 
+func (s *UserServer) RequestPrivilegeEscalation(ctx context.Context, in *user.PrivilegeEscalationReq) (*user.Result, error) {
+	l := logic.NewRequestPrivilegeEscalationLogic(ctx, s.svcCtx)
+	return l.RequestPrivilegeEscalation(in)
+}
+
+func (s *UserServer) ApprovalPEReq(ctx context.Context, in *user.ApprovalPrivilegeEscalationReq) (*user.Result, error) {
+	l := logic.NewApprovalPEReqLogic(ctx, s.svcCtx)
+	return l.ApprovalPEReq(in)
+}
+
+func (s *UserServer) GetAllActivePEReq(ctx context.Context, in *user.Empty) (*user.PEList, error) {
+	l := logic.NewGetAllActivePEReqLogic(ctx, s.svcCtx)
+	return l.GetAllActivePEReq(in)
+}
+
 func (s *UserServer) GetUserRank(ctx context.Context, in *user.RankByUserIdReq) (*user.UserRank, error) {
 	l := logic.NewGetUserRankLogic(ctx, s.svcCtx)
 	return l.GetUserRank(in)
@@ -56,12 +81,7 @@ func (s *UserServer) GetUserInfo(ctx context.Context, in *user.UserInfoReq) (*us
 	return l.GetUserInfo(in)
 }
 
-func (s *UserServer) SendVerifyEmail(ctx context.Context, in *user.UserInfoReqByEmail) (*user.Result, error) {
-	l := logic.NewSendVerifyEmailLogic(ctx, s.svcCtx)
-	return l.SendVerifyEmail(in)
-}
-
-func (s *UserServer) RefreshToken(ctx context.Context, in *user.RefreshReq) (*user.Tokens, error) {
-	l := logic.NewRefreshTokenLogic(ctx, s.svcCtx)
-	return l.RefreshToken(in)
+func (s *UserServer) GetUserPrivilegeEscalation(ctx context.Context, in *user.RankByUserIdReq) (*user.PrivilegeEscalationDetail, error) {
+	l := logic.NewGetUserPrivilegeEscalationLogic(ctx, s.svcCtx)
+	return l.GetUserPrivilegeEscalation(in)
 }

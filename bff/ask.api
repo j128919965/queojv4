@@ -44,6 +44,7 @@ type ReplyDetail struct {
     Time     int64 `json:"time"`
     Nickname string `json:"nickname"`
     Content  string `json:"content"`
+    IsTeacher bool `json:"isTeacher"`
 }
 
 type AskList struct {
