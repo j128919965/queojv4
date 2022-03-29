@@ -101,7 +101,7 @@ func (svc *ServiceContext) submitJava(record *model.Record) {
 		return
 	}
 	if status != 1 {
-		svc.UpdateRecordStatus(record.Id, status)
+		svc.UpdateRecordStatus(record.Id, uint64(status))
 		return
 	}
 
