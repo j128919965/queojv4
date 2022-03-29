@@ -30,7 +30,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	ctx , stop := context.WithCancel(context.Background())
 	return &ServiceContext{
 		Config: c,
-		Redis:  redis.New(c.Redis.Host),
+		Redis:  redis.New(c.Redis.Host,redis.WithPass(c.Redis.Pass)),
 		ctx: ctx,
 		stop: stop,
 	}

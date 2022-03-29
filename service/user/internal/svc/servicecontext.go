@@ -42,7 +42,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		stop:                 stop,
 		Config:               c,
 		Db:                   db,
-		Redis:                redis.New(c.Redis.Host),
+		Redis:  redis.New(c.Redis.Host,redis.WithPass(c.Redis.Pass)),
 		CoinsAndPointsSyncer: NewCoinsAndPointsSyncer(ctx, db),
 		EmailClient:          emailclient.NewEmail(zrpc.MustNewClient(c.EmailClient)),
 		MessageClient:        messageclient.NewMessage(zrpc.MustNewClient(c.MessageClient)),

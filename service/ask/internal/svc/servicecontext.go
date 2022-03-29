@@ -21,7 +21,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config: c,
 		Db:     db,
-		Redis:  redis.New(c.Redis.Host),
+		Redis:  redis.New(c.Redis.Host,redis.WithPass(c.Redis.Pass)),
 	}
 }
 
