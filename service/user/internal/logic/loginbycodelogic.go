@@ -120,3 +120,10 @@ func (l *LoginByCodeLogic) LoginByCode(in *user.LoginByCodeReq) (*user.LoginResu
 
 	return resp, nil
 }
+
+func IntMax(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}

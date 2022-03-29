@@ -10,6 +10,7 @@ Mysql:
 
 Redis:
   Host: localhost:6379
+  Pass: queoj
 
 EmailClient:
   Etcd:
