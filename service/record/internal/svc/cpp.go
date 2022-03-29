@@ -104,7 +104,7 @@ func (svc *ServiceContext) submitCpp(record *model.Record) {
 	}
 
 	logx.Info(fmt.Sprintf("judge cpp {%d} success .",record.Id))
-	svc.UpdateRecordResult(record.Id,result.timeUsed,result.spaceUsed,record)
+	//svc.UpdateRecordResult(record.Id,result.timeUsed,result.spaceUsed,record)
 }
 
 

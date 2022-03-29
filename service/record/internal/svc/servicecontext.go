@@ -2,16 +2,20 @@ package svc
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/tal-tech/go-zero/core/logx"
 	"github.com/tal-tech/go-zero/core/stores/redis"
 	"github.com/tal-tech/go-zero/zrpc"
 	"gorm.io/gorm"
+	"math/rand"
 	"queoj/service/problem/problemclient"
 	"queoj/service/record/internal/config"
 	"queoj/service/record/internal/model"
 	record_status "queoj/service/record/internal/svc/record-status"
 	"queoj/service/user/userclient"
+	"strconv"
+	"time"
 )
 
 type ServiceContext struct {
@@ -20,20 +24,65 @@ type ServiceContext struct {
 	Redis         *redis.Redis
 	ProblemClient problemclient.Problem
 	UserClient    userclient.User
+	ctx context.Context
+	stop func()
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
+	ctx , stop := context.WithCancel(context.Background())
 	db, err := model.NewMysql(c.Mysql.DataSource)
 	if err != nil {
 		panic(err.Error())
 	}
-	return &ServiceContext{
+	svc :=  &ServiceContext{
 		Config:        c,
 		Db:            db,
 		Redis:  redis.New(c.Redis.Host,redis.WithPass(c.Redis.Pass)),
 		ProblemClient: problemclient.NewProblem(zrpc.MustNewClient(c.ProblemClient)),
 		UserClient:    userclient.NewUser(zrpc.MustNewClient(c.UserClient)),
+		ctx: ctx,
+		stop: stop,
 	}
+	svc.StartReceiveResult()
+	return svc
+}
+
+func (svc *ServiceContext) StartReceiveResult(){
+	for i := 0; i < 10; i++ {
+		go func() {
+			for {
+				select {
+				case <-svc.ctx.Done():
+					return
+				default:{
+					recordString, err := svc.Redis.Rpop(redisRecordBackKey)
+					if err != nil {
+						if err!=redis.Nil {
+							logx.Errorf("get from redis error :%v",err)
+						}
+						time.Sleep(time.Duration(rand.Intn(100) + 950) * time.Millisecond)
+						break
+					}
+					var record model.Record
+					err = json.Unmarshal([]byte(recordString), &record)
+					if err != nil {
+						logx.Errorf("unmarshal record error :%v",err)
+						record.Status = record_status.InternalError
+					}
+
+					if record.Status != record_status.Accept {
+						svc.UpdateRecordStatus(record.Id, uint64(record.Status))
+					}else {
+						svc.UpdateRecordResult(&record)
+					}
+				}
+				}
+			}
+		}()
+	}
+
+	// 定时查找没判好的任务
+
 }
 
 func (svc *ServiceContext) GetRecordById(id uint64) (*model.Record, error) {
@@ -58,11 +107,12 @@ func (svc *ServiceContext) GetRecordByUserId(userId uint64) ([]*model.Record, er
 	return record, nil
 }
 
-func (svc *ServiceContext) UpdateRecordStatus(id uint64, status uint32) {
+func (svc *ServiceContext) UpdateRecordStatus(id uint64, status uint64) {
+	svc.Redis.Setex(fmt.Sprintf("r:s:%d",id), strconv.FormatUint(status,10),120)
 	svc.Db.Model(&model.Record{}).Where("id = ?", id).Update("status", status)
 }
 
-func (svc *ServiceContext) UpdateRecordResult(id, time, space uint64, record *model.Record) {
+func (svc *ServiceContext) UpdateRecordResult(record *model.Record) {
 	var i int
 	err := svc.Db.Raw("select count(1) from records where uid = ? and pid = ? and `status` = 1", record.Uid, record.Pid).Scan(&i).Error
 	if err != nil {
@@ -89,7 +139,8 @@ func (svc *ServiceContext) UpdateRecordResult(id, time, space uint64, record *mo
 	}
 
 	// 无论如何，一定要执行到这一步
-	svc.Db.Model(&model.Record{}).Where("id = ?", id).Updates(&model.Record{Status: record_status.Accept, TimeUsed: time, SpaceUsed: space})
+	svc.Redis.Setex(fmt.Sprintf("r:s:%d",record.Id), strconv.FormatUint(record_status.Accept,10),30)
+	svc.Db.Model(&model.Record{}).Where("id = ?", record.Id).Updates(&model.Record{Status: record_status.Accept, TimeUsed: record.TimeUsed, SpaceUsed: record.SpaceUsed})
 }
 
 func (svc *ServiceContext) UpdateUserRecordStatistic(userId uint64,level int32)  {
@@ -111,16 +162,22 @@ func (svc *ServiceContext) UpdateUserRecordStatistic(userId uint64,level int32) 
 
 const JudgeUrl = `http://localhost:5050/run`
 
+var redisRecordKey  = "r-in-buf"
+var redisRecordBackKey  = "r-back-buf"
+
 func (svc *ServiceContext) SubmitRecord(record *model.Record) {
-	logx.Info("start judge {%d}", record.Id)
-	switch record.Language {
-	case 1:
-		svc.submitJava(record)
-	case 2:
-		svc.submitCpp(record)
-	case 3:
-		svc.submitGo(record)
-	default:
-		panic("暂不支持该语言！")
-	}
+	r, _ := json.Marshal(record)
+	svc.Redis.Lpush(redisRecordKey,string(r))
+	return
+	//logx.Info("start judge {%d}", record.Id)
+	//switch record.Language {
+	//case 1:
+	//	svc.submitJava(record)
+	//case 2:
+	//	svc.submitCpp(record)
+	//case 3:
+	//	svc.submitGo(record)
+	//default:
+	//	panic("暂不支持该语言！")
+	//}
 }

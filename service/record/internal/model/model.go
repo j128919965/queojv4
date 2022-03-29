@@ -1,15 +1,15 @@
 package model
 
 type Record struct {
-	Id uint64  `gorm:"primaryKey,autoIncrement"`
-	Uid uint64
-	Pid int32
-	Time uint64
-	Language uint32
-	Status uint32
-	TimeUsed uint64
-	SpaceUsed uint64
-	Code string
+	Id uint64  `gorm:"primaryKey,autoIncrement" json:"id"`
+	Uid uint64 `json:"uid"`
+	Pid int32 `json:"pid"`
+	Time uint64 `json:"time"`
+	Language uint32 `json:"language"`
+	Status uint32 `json:"status"`
+	TimeUsed uint64 `json:"time_used"`
+	SpaceUsed uint64 `json:"space_used"`
+	Code string `json:"code"`
 }
 
 type UserSuccessStatistic struct {

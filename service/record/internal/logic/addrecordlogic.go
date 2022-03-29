@@ -39,7 +39,7 @@ func (l *AddRecordLogic) AddRecord(in *record.RecordDetail) (*record.RecordByIdR
 	}
 
 	// 异步判题
-	go l.svcCtx.SubmitRecord(r)
+	l.svcCtx.SubmitRecord(r)
 
 	return &record.RecordByIdReq{
 		Id: r.Id,
