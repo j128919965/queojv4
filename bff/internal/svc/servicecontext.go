@@ -26,7 +26,7 @@ type ServiceContext struct {
 func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:         c,
-		Redis:          redis.New(c.Redis.Host),
+		Redis:          redis.New(c.Redis.Host,redis.WithPass(c.Redis.Pass)),
 		UserClient:     userclient.NewUser(zrpc.MustNewClient(c.UserClient)),
 		ProblemClient:  problemclient.NewProblem(zrpc.MustNewClient(c.ProblemClient)),
 		SolutionClient: solutionclient.NewSolution(zrpc.MustNewClient(c.SolutionClient)),

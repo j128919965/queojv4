@@ -1,5 +1,7 @@
 cd ~/queojv4/
 
+git pull
+
 kill $(ps -ef | grep ./record | grep -v grep |awk '{print $2}')
 kill $(ps -ef | grep ./user | grep -v grep |awk '{print $2}')
 kill $(ps -ef | grep ./ask | grep -v grep |awk '{print $2}')

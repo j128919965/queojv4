@@ -8,6 +8,7 @@ Auth:
 
 Redis:
   Host: localhost:6379
+  Pass: queoj
 
 UserClient:
   Etcd:
