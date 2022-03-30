@@ -82,7 +82,23 @@ func (svc *ServiceContext) StartReceiveResult(){
 	}
 
 	// 定时查找没判好的任务
-
+	go func() {
+		for {
+			select {
+			case <-svc.ctx.Done():
+				return
+			default:{
+				now := time.Now().Unix() - 60
+				var records []*model.Record
+				svc.Db.Where("time < ? and status=0",now).Find(&records)
+				for _, record := range records {
+					svc.SubmitRecord(record)
+				}
+				time.Sleep(10 * time.Second)
+			}
+			}
+		}
+	}()
 }
 
 func (svc *ServiceContext) GetRecordById(id uint64) (*model.Record, error) {
